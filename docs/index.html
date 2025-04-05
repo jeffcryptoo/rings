@@ -54,36 +54,20 @@
 
         <div class="topstats">
             <div class="topstat">
-                <div id="topstat-tvl">$-.--</div>
-                <div>Total PT-<span id="topstat-basename-1">_</span> Minted</div>
+                <div id="topstat-ve-amt">-.--</div>
+                <div>Total <span id="l-ve-1"></span> Locked</div>
             </div>
             <div class="topstat">
-                <div id="topstat-staked">$-.--</span></div>
-                <div>Staked PT</div>
+                <div id="topstat-wrap-ts">-.--</div>
+                <div><span id="l-wrap-1"></span> Supply</div>
             </div>
             <div class="topstat">
-                <div id="topstat-cash">$-.--</div>
-                <div>Cash Reserves</div>
+                <div id="topstat-base-per-wrap">-.--</div>
+                <div><span id="l-base-1">Base</span> per <span id="l-wrap-2">Wrap</span></div>
             </div>
             <div class="topstat">
-                <div id="topstat-dom">-.--% of <span id="topstat-basename-2">_</span></div>
-                <div>LM Dominance</div>
-            </div>
-            <div class="topstat">
-                <div id="topstat-apr-pt">-.--%</div>
-                <div>PT Staking APR</div>
-            </div>
-            <div class="topstat" onclick="document.getElementsByClassName('tablinks')[2].click();window.location='#Explore'">
-                <div id="topstat-apr-yt">-.--%</div>
-                <div>YT LM-APR</div>
-            </div>
-            <div class="topstat" id="topstat-apr-native-div">
-                <div id="topstat-apr-native">-.--%</div>
-                <div>Underlying Native APR</div>
-            </div>
-            <div class="topstat">
-                <div id="topstat-borrowed">$-.--</div>
-                <div>LM Borrowings</div>
+                <div id="topstat-dom">-.--%</div>
+                <div><span id="l-ve-2"></span> Dominance</div>
             </div>
         </div>
 
@@ -102,24 +86,24 @@
         <div id="Mint" class="tabcontent">
             <div class="c2a">
                 <form>
-                    <h2>Mint <span id="deposit-wrapname-1">_</span></h2>
-					<span id="deposit-wrapname-2">_</span> is minted with <span id="deposit-basename-3">_</span> Rings veNFTs.
+                    <h2>Mint <span id="l-wrap-3">_</span></h2>
+					<span id="l-wrap-4">_</span> is minted with <span id="l-ve-3">_</span> Rings veNFTs.
 					<br><br><br><br>
                     <div class="form-item-container">
-                        <label for="">1. Acquire some <span id="deposit-basename-4">_</span></label>
-                        <div class="hint"><a href="https://app.rings.money/#/lock" target="_blank">Lock scUSD or stkscUSD on Rings to get veUSD!</a></div>
+                        <label for="">1. Acquire some <span id="l-ve-4">_</span></label>
+                        <div class="hint"><a href="https://app.rings.money/#/lock" target="_blank">Lock <span id="l-base-2"></span> on Rings.Money to get <span id="l-ve-5">_</span>!</a></div>
                     </div>
                     <br><br>
                     <div class="form-item-container">
-                        <label for="">2. Select a <span id="deposit-basename-5">_</span> NFT to Deposit</label>
-                        <div class="hint" id="mint-bal">Balance: -.-- <span id="deposit-basename-6">_</span> NFTs</div>
+                        <label for="">2. Select a <span id="l-ve-6">_</span> NFT to Deposit</label>
+                        <div class="hint" id="mint-bal">Balance: -.-- <span id="l-ve-7">_</span> NFTs</div>
                         <br><br>
                         <div id="mint-table"></div>
                     </div>
                     <br><br><br>
                     <div class="form-item-container">
-                        <label for="">3. Use <span id="deposit-wrapname-7">_</span> to start Earning!</label>
-                        <div class="hint" onclick="openTab(event,'Stake');">Switch to Stake tab.<br>Or use <span id="deposit-wrapname-8">_</span> elsewhere!</div>
+                        <label for="">3. Use <span id="l-wrap-5">_</span> to start Earning!</label>
+                        <div class="hint" onclick="openTab(event,'Stake');">Switch to Stake tab.<br>Or use <span id="l-wrap-6">_</span> elsewhere!</div>
                     </div>
                     <br><br>
                 </form>
@@ -291,13 +275,13 @@
 		DEPOSITOR = "0xb0c855a7fb3716ebc1c4505218de4bf2186125ba";
 
 		VOTER = "0xB84194E28f624BBBA3C9181F3a1120eE76469337";
+		SAFE_ADDR = "0x0000000000000000000000000000000000001234";
 
 		FARM = "";
 		TEARNED = [];
 		TEARNED_LOGO = [];
 		TEARNED_NAME = [];
 
-		VOTER = "0xB84194E28f624BBBA3C9181F3a1120eE76469337";
 
 		MARKET_NAME = "Rings";
 		MARKET_LOGO = "https://ftm.guru/icons/rings.png";

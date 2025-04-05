@@ -223,6 +223,26 @@ async function paintStatic() {
 
     document.getElementsByClassName('tablinks')[0].click();
 
+	$("l-ve-1").innerHTML = VENFT_NAME;
+	$("l-ve-2").innerHTML = VENFT_NAME;
+	$("l-ve-3").innerHTML = VENFT_NAME;
+	$("l-ve-4").innerHTML = VENFT_NAME;
+	$("l-ve-5").innerHTML = VENFT_NAME;
+	$("l-ve-6").innerHTML = VENFT_NAME;
+	$("l-ve-7").innerHTML = VENFT_NAME;
+
+	$("l-base-1").innerHTML = BASE_NAME;
+	$("l-base-2").innerHTML = BASE_NAME;
+
+	$("l-wrap-1").innerHTML = WRAP_NAME;
+	$("l-wrap-2").innerHTML = WRAP_NAME;
+	$("l-wrap-3").innerHTML = WRAP_NAME;
+	$("l-wrap-4").innerHTML = WRAP_NAME;
+	$("l-wrap-5").innerHTML = WRAP_NAME;
+	$("l-wrap-6").innerHTML = WRAP_NAME;
+
+
+/*
 	$("headline-props").innerHTML = `
 		${BASE_NAME}
 		<img src="${BASE_LOGO}">
@@ -231,7 +251,7 @@ async function paintStatic() {
 		<img src="${MARKET_LOGO}">
 	`;
 
-	$("topstat-BASE_NAME-1").innerHTML = BASE_NAME;
+	$("topstat-basename-1").innerHTML = BASE_NAME;
 	$("topstat-BASE_NAME-2").innerHTML = BASE_NAME;
 
 	$("deposit-WRAP_NAME-1").innerHTML = WRAP_NAME;
@@ -254,11 +274,39 @@ async function paintStatic() {
 	$("redeem-BASE_NAME-2").innerHTML = BASE_NAME;
 	$("redeem-WRAP_NAME-3").innerHTML = WRAP_NAME;
 	$("redeem-BASE_NAME-4").innerHTML = BASE_NAME;
-
+*/
 }
 
 async function dexstats() {
+	_MGR_P = new ethers.Contract( DEPOSITOR , DEPOSITOR_ABI , provider );
 
+	_inf = await _MGR_P.info(SAFE_ADDR,[],[]);
+	//STATE.user = {
+	//	wrap_bal : BigInt(_inf[0][0]),
+	//	wrap_allow_mgr: BigInt(_inf[0][11]),
+	//	venft_bal : BigInt(_inf[0][12]),
+	//}
+	STATE.global = {
+		wrap_ts: BigInt(_inf[0][1]),
+		base_per_wrap: BigInt(_inf[0][2]),
+		wrap_redeemable: BigInt(_inf[0][3]),
+		fees_rd: BigInt(_inf[0][4]),
+		fees_rb: BigInt(_inf[0][5]),
+		venft_id: BigInt(_inf[0][6]),
+		venft_amt: BigInt(_inf[0][7]),
+		venft_ts: BigInt(_inf[0][8]),
+		venft_end: BigInt(_inf[0][9]),
+		venft_ve: BigInt(_inf[0][7]) * ( BigInt(_inf[0][9]) - BigInt(Math.floor(Date.now()/1e3)) ) / BigInt(VENFT_MAXTIME),
+		fees_mdb: BigInt(_inf[0][10]),
+	}
+
+
+	$("topstat-ve-amt").innerHTML = fornum(STATE.global.venft_amt, BASE_DEC);
+	$("topstat-wrap-ts").innerHTML = fornum(STATE.global.wrap_ts, WRAP_DEC);
+	$("topstat-base-per-wrap").innerHTML = (Number(STATE.global.base_per_wrap)/1e18).toFixed(6);
+	$("topstat-dom").innerHTML = (Number(STATE.global.venft_amt)/Number(STATE.global.venft_ts)*100).toFixed(6)+"%";
+
+	/*
 	_EL_27 = new ethers.Contract("0x1b1c9a41a96dE931c7508BD2C653C57C63cD32a4", EL_27_ABI, provider);
 	_ds = await _EL_27.getElmaCompoundFarm( FARM , DEPOSITOR , "0x0000000000000000000000000000000000001234" );
 
@@ -314,6 +362,7 @@ async function dexstats() {
 			`;
 		}
 	}
+	*/
 	return;
 }
 

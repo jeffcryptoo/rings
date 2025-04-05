@@ -526,7 +526,7 @@ button:disabled, .c2abtn:disabled {
     cursor: context-menu;
 }
 
-.hint a {
+.hint a, .hint a * {
     color: aqua;
     cursor: pointer;
 }
