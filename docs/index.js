@@ -230,6 +230,8 @@ async function paintStatic() {
 	$("l-ve-5").innerHTML = VENFT_NAME;
 	$("l-ve-6").innerHTML = VENFT_NAME;
 	$("l-ve-7").innerHTML = VENFT_NAME;
+	$("l-ve-8").innerHTML = VENFT_NAME;
+	$("l-ve-9").innerHTML = VENFT_NAME;
 
 	$("l-base-1").innerHTML = BASE_NAME;
 	$("l-base-2").innerHTML = BASE_NAME;
@@ -240,6 +242,8 @@ async function paintStatic() {
 	$("l-wrap-4").innerHTML = WRAP_NAME;
 	$("l-wrap-5").innerHTML = WRAP_NAME;
 	$("l-wrap-6").innerHTML = WRAP_NAME;
+	$("l-wrap-7").innerHTML = WRAP_NAME;
+	$("l-wrap-8").innerHTML = WRAP_NAME;
 
 
 /*
@@ -305,7 +309,13 @@ async function dexstats() {
 	$("topstat-wrap-ts").innerHTML = fornum(STATE.global.wrap_ts, WRAP_DEC);
 	$("topstat-base-per-wrap").innerHTML = (Number(STATE.global.base_per_wrap)/1e18).toFixed(6);
 	$("topstat-dom").innerHTML = (Number(STATE.global.venft_amt)/Number(STATE.global.venft_ts)*100).toFixed(6)+"%";
-	$("mint-dep-fee").innerHTML = fornum(Number(STATE.global.fees_mdb)/1e18*100,0) + "%";
+	$("mint-fee").innerHTML = fornum(Number(STATE.global.fees_mdb)/1e18*100,0) + "%";
+	$("redeem-fee").innerHTML = fornum((Number(STATE.global.fees_rd)+Number(STATE.global.fees_rb))/1e18*100,0) + "%";
+
+
+
+
+
 	/*
 	_EL_27 = new ethers.Contract("0x1b1c9a41a96dE931c7508BD2C653C57C63cD32a4", EL_27_ABI, provider);
 	_ds = await _EL_27.getElmaCompoundFarm( FARM , DEPOSITOR , "0x0000000000000000000000000000000000001234" );
@@ -417,6 +427,13 @@ async function gubs() {
 	;
 
 
+	$("topstat-ve-amt").innerHTML = fornum(STATE.global.venft_amt, BASE_DEC);
+	$("topstat-wrap-ts").innerHTML = fornum(STATE.global.wrap_ts, WRAP_DEC);
+	$("topstat-base-per-wrap").innerHTML = (Number(STATE.global.base_per_wrap)/1e18).toFixed(6);
+	$("topstat-dom").innerHTML = (Number(STATE.global.venft_amt)/Number(STATE.global.venft_ts)*100).toFixed(6)+"%";
+	$("mint-dep-fee").innerHTML = fornum(Number(STATE.global.fees_mdb)/1e18*100,0) + "%";
+
+
 	$("mint-bal").innerHTML = `Balance: ${ Number(STATE.user.venft_bal) } ${ VENFT_NAME}`;
 	$("stake-bal").innerHTML = `Balance: ${ fornum5(STATE.user.wrap_bal, WRAP_DEC) } ${ WRAP_NAME}`;
 	$("redeem-bal").innerHTML = `Balance: ${ fornum5(STATE.user.wrap_bal, WRAP_DEC) } ${ WRAP_NAME}`;
@@ -424,7 +441,7 @@ async function gubs() {
 	$("mint-table").innerHTML = STATE.user.nfts.map( (e,i) => { return `
 		<div class="mint-table-row">
 			<div>${ VENFT_NAME} ID # ${ e[0] } </div>
-			<div>Melt ${ fornum5(e[1], BASE_DEC) } ${ BASE_NAME } </div>
+			<div>Melt ${ fornum5(e[1], BASE_DEC) } ${ BASE_NAME } nft,</div>
 			<div>Get ${ fornum5( Number(e[1]) * Number(STATE.global.base_per_wrap)/1e18, WRAP_DEC) } ${ WRAP_NAME } </div>
 			<div> <div class="c2abtn submit" onclick="mint(${e[0]},${i})">Mint</div></div>
 		</div>
@@ -648,7 +665,9 @@ return;
 }
 
 async function redeem(ismax) {
-	_DEPOSITOR = new ethers.Contract(DEPOSITOR, LPABI, signer);
+	_BASE = new ethers.Contract(BASE, LPABI, signer);
+	_WRAP = new ethers.Contract(WRAP, LPABI, signer);
+	_DEPOSITOR = new ethers.Contract(DEPOSITOR, DEPOSITOR_ABI, signer);
 
 	al = await Promise.all([
 		_WRAP.allowance(window.ethereum.selectedAddress, DEPOSITOR),
@@ -701,7 +720,7 @@ async function redeem(ismax) {
 
 		<h4><u><i>Please Confirm this transaction in your wallet!</i></u></h4>
 	`);
-	let _tr = await _DEPOSITOR.redeem(_oamt,{gasLimit:BigInt(1_200_000)});
+	let _tr = await _DEPOSITOR.withdraw(_oamt);
 	console.log(_tr);
 	notice(`
 		<h3>Order Submitted!</h3>

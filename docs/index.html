@@ -76,9 +76,9 @@
         <!-- Tab Navigation -->
         <div class="tab">
             <button class="tablinks" onclick="openTab(event, 'Mint')" id="tablinks_Mint">Mint</button>
-            <button class="tablinks" onclick="openTab(event, 'Stake')" id="tablinks_Stake">Stake</button>
-            <button class="tablinks" onclick="openTab(event, 'Claim')" id="tablinks_Claim">Claim</button>
-            <button class="tablinks" onclick="openTab(event, 'Unstake')" id="tablinks_Unstake">Unstake</button>
+            <button class="tablinks" onclick="alert('Staking features will be Available from 10th April 2025!');return;openTab(event, 'Stake')" id="tablinks_Stake">Stake</button>
+            <button class="tablinks" onclick="alert('Staking features will be Available from 10th April 2025!');return;openTab(event, 'Claim')" id="tablinks_Claim">Claim</button>
+            <button class="tablinks" onclick="alert('Staking features will be Available from 10th April 2025!');return;openTab(event, 'Unstake')" id="tablinks_Unstake">Unstake</button>
             <button class="tablinks" onclick="openTab(event, 'Redeem')" id="tablinks_Redeem">Redeem</button>
         </div>
 
@@ -99,7 +99,7 @@
                         <div class="hint" id="mint-bal">Balance: -.-- <span id="l-ve-7">_</span> NFTs</div>
                         <br><br>
                         <div id="mint-table"></div>
-                        <div class="hint">Deposit fee of <span id="mint-dep-fee">-.-%</span> apply!</div>
+                        <div class="hint">Deposit fee of <span id="mint-fee">-.-%</span> apply!</div>
                     </div>
                     <br><br><br>
                     <div class="form-item-container">
@@ -184,8 +184,8 @@
         <div id="Redeem" class="tabcontent">
             <div class="c2a">
                 <form>
-                    <h2>Redeem <span id="redeem-wrapname-1">_</span></h2>
-					Unwrap 1:1 to <span id="redeem-basename-2">_</span> at anytime!
+                    <h2>Redeem <span id="l-wrap-7">_</span></h2>
+					Unwrap 1:1 to <span id="l-ve-8">_</span> at anytime!
 					<br><br><br><br>
                     <div class="form-item-container">
                         <label for="">1. Unstake</label>
@@ -194,15 +194,16 @@
                     <br><br>
                     <div class="form-item-container">
                         <label for="">2. Enter amount to unwrap</label>
-                        <div class="hint" id="redeem-bal">Balance: -.-- <span id="redeem-wrapname-3">_</span></div>
+                        <div class="hint" id="redeem-bal">Balance: -.-- <span id="l-wrap-8">_</span></div>
                         <input required class="in-box" id="redeem-amt" type="number" placeholder="1337" step="1" min="1">
+                        <div class="hint">Redeem fee of <span id="redeem-fee">-.-%</span> apply!</div>
                     </div>
                     <div type="submit" class="c2a-1 submit equal-gradient c2abtn" onclick="redeem(false)">Redeem</div>
                     <div type="submit" class="c2a-1 submit equal-gradient c2abtn" onclick="redeem(true)">Redeem Max</div>
                     <br><br>
                     <div class="form-item-container">
                         <label for="">3. Well Done!</label>
-                        <div class="hint">Your <span id="redeem-basename-4">_</span> is back in your wallet!</div>
+                        <div class="hint">Your <span id="l-ve-9">_</span> is back in your wallet!</div>
                     </div>
                     <br><br>
                 </form>
