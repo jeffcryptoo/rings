@@ -475,7 +475,7 @@ async function mint(_id, _idi) {
 			${WRAP_NAME} Depositor requires your approval to complete this conversion.<br><br>
 			<h4><u><i>Please Confirm this transaction in your wallet!</i></u></h4>
 		`);
-		let _tr = await ve.approve(VENAMM,_id);
+		let _tr = await ve.approve(DEPOSITOR,_id);
 		console.log(_tr);
 		notice(`
 			<h3>Submitting Approval Transaction!</h3>
@@ -553,7 +553,7 @@ async function mint(_id, _idi) {
 		<h3>Order Submitted!</h3>
 		<br><h4>Minting ${WRAP_NAME}</h4>
 		<img style='height:20px;position:relative;top:4px' src="${WRAP_LOGO}"> <u>${ fornum5(_q[0],WRAP_DEC).toLocaleString() } ${WRAP_NAME}</u><br>
-		<br><h4>Melting your ${VENAME} veNFT</h4>
+		<br><h4>Melting your ${VENFT_NAME} veNFT</h4>
 		<img style='height:20px;position:relative;top:4px' src="${BASE_LOGO}"> <u>veNFT #<b>${_id}</b></u>,<br>Containing <u>${ fornum5(_q[1],BASE_DEC).toLocaleString() } ${BASE_NAME}</u>,<br>Locked for <u>${Number(_q[2])} weeks</u>.<br><br>
 		<h4><a target="_blank" href="${EXPLORE}/tx/${_tr.hash}">View on Explorer</a></h4>
 	`);
