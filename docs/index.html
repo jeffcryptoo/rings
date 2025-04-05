@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>eliteRingsScUSD - veUSD Liquid Wrapper</title>
+	<meta name="description" content="Enjoy instant liquidity for your Rings veUSD on Sonic and boosted USD Yield by tapping into our Earnings Flywheel! Only with Eliteness.Network!">
+	<meta name="keywords" content="Guru Network, Decentralized Finance, Fantom, ELITE, 1337, defi, farming, FTM1337">
+    <link rel="shortcut icon" href="https://ftm.guru/icons/eliteness.png">
+    <link rel="stylesheet" href="index.css"/>
+</head>
+<body>
+
+    <div id="note" class="overlay">
+        <div class="popup">
+            <a class="close" href="#">&times;</a>
+            <div class="content" id="content1">
+                Welcome!
+            </div>
+        </div>
+    </div>
+
+    <div class="topnav">
+        <div class="topnav-left">
+            <a href="https://eliteness.network/elma">
+                <img src="https://ftm.guru/icons/eliteness.png" alt="Logo" height="48px">
+            </a>
+            <a href="https://eliteness.network">ELITENESS<br>NETWORK</a>
+        </div>
+        <div class="topnav-right">
+            <p id="p_cw">
+                <span id="cw" onclick="cw()"><button id="cw_og" class="submit equal-gradient">Connect wallet</button></span>
+            </p>
+        </div>
+    </div>
+
+    <div id="main-area">
+        <div class="headline">
+        	<a href=".." style="text-decoration:none;">
+            	<div class="headline-keyword">eliteRingsScUSD</div>
+				<div>Rings veUSD Liquid Wrapper on Sonic!</div>
+				<br>
+				<div style="display:grid;grid-template-columns:auto auto;display:none">
+					<img src="back.svg" style="width: 32px;">
+					<div id="headline-props" style="text-align: right;font-family: bold;">ELMA Pool</div>
+				</div>
+            </a>
+        </div>
+        <!-- <div class="page-heading">
+            <img src="https://ftm.guru/icons/lock.svg" alt="Lock Icon">
+            <a href="https://eliteness.network/elma">eLOCKS</a>
+            ≻ <a>Overview</a>
+        </div> -->
+
+        <div class="topstats">
+            <div class="topstat">
+                <div id="topstat-tvl">$-.--</div>
+                <div>Total PT-<span id="topstat-basename-1">_</span> Minted</div>
+            </div>
+            <div class="topstat">
+                <div id="topstat-staked">$-.--</span></div>
+                <div>Staked PT</div>
+            </div>
+            <div class="topstat">
+                <div id="topstat-cash">$-.--</div>
+                <div>Cash Reserves</div>
+            </div>
+            <div class="topstat">
+                <div id="topstat-dom">-.--% of <span id="topstat-basename-2">_</span></div>
+                <div>LM Dominance</div>
+            </div>
+            <div class="topstat">
+                <div id="topstat-apr-pt">-.--%</div>
+                <div>PT Staking APR</div>
+            </div>
+            <div class="topstat" onclick="document.getElementsByClassName('tablinks')[2].click();window.location='#Explore'">
+                <div id="topstat-apr-yt">-.--%</div>
+                <div>YT LM-APR</div>
+            </div>
+            <div class="topstat" id="topstat-apr-native-div">
+                <div id="topstat-apr-native">-.--%</div>
+                <div>Underlying Native APR</div>
+            </div>
+            <div class="topstat">
+                <div id="topstat-borrowed">$-.--</div>
+                <div>LM Borrowings</div>
+            </div>
+        </div>
+
+		<br><br>
+
+        <!-- Tab Navigation -->
+        <div class="tab">
+            <button class="tablinks" onclick="openTab(event, 'Mint')" id="tablinks_Mint">Mint</button>
+            <button class="tablinks" onclick="openTab(event, 'Stake')" id="tablinks_Stake">Stake</button>
+            <button class="tablinks" onclick="openTab(event, 'Claim')" id="tablinks_Claim">Claim</button>
+            <button class="tablinks" onclick="openTab(event, 'Unstake')" id="tablinks_Unstake">Unstake</button>
+            <button class="tablinks" onclick="openTab(event, 'Redeem')" id="tablinks_Redeem">Redeem</button>
+        </div>
+
+        <!-- Tab content -->
+        <div id="Mint" class="tabcontent">
+            <div class="c2a">
+                <form>
+                    <h2>Mint <span id="deposit-wrapname-1">_</span></h2>
+					<span id="deposit-wrapname-2">_</span> is minted with <span id="deposit-basename-3">_</span> Rings veNFTs.
+					<br><br><br><br>
+                    <div class="form-item-container">
+                        <label for="">1. Acquire some <span id="deposit-basename-4">_</span></label>
+                        <div class="hint"><a href="https://app.rings.money/#/lock" target="_blank">Lock scUSD or stkscUSD on Rings to get veUSD!</a></div>
+                    </div>
+                    <br><br>
+                    <div class="form-item-container">
+                        <label for="">2. Select a <span id="deposit-basename-5">_</span> NFT to Deposit</label>
+                        <div class="hint" id="mint-bal">Balance: -.-- <span id="deposit-basename-6">_</span> NFTs</div>
+                        <br><br>
+                        <div id="mint-table"></div>
+                    </div>
+                    <br><br><br>
+                    <div class="form-item-container">
+                        <label for="">3. Use <span id="deposit-wrapname-7">_</span> to start Earning!</label>
+                        <div class="hint" onclick="openTab(event,'Stake');">Switch to Stake tab.<br>Or use <span id="deposit-wrapname-8">_</span> elsewhere!</div>
+                    </div>
+                    <br><br>
+                </form>
+            </div>
+        </div>
+        <!-- Tab content -->
+        <div id="Stake" class="tabcontent">
+            <div class="c2a">
+                <form>
+                    <h2>Stake <span id="stake-wrapname-1">_</span></h2>
+					Deposit into Gauge Farm to Earn Rewards!
+					<div class="hint" id="stake-tvl">TVL: $-.--</div>
+					<br><br>
+                    <div class="form-item-container">
+                        <label for="">1. Mint</label>
+                        <div class="hint" onclick="openTab(event,'Mint');">Switch to Mint tab.</div>
+                    </div>
+                    <br><br>
+                    <div class="form-item-container">
+                        <label for="">2. Enter amount to Stake</label>
+                        <div class="hint" id="stake-bal">Balance: -.-- <span id="stake-wrapname-2">_</span></div>
+                        <input required class="in-box" id="stake-amt" type="number" placeholder="1337" step="1" min="1">
+                    </div>
+                    <div type="submit" class="c2a-1 submit equal-gradient c2abtn" onclick="stake(false)">Stake</div>
+                    <div type="submit" class="c2a-1 submit equal-gradient c2abtn" onclick="stake(true)">Stake Max</div>
+                    <br><br><br>
+                    <div class="form-item-container">
+                        <label for="">3. View & Claim Rewards!</label>
+                        <div class="hint" onclick="openTab(event,'Claim');">Switch to Claim tab.</div>
+                    </div>
+                    <br><br>
+                </form>
+            </div>
+        </div>
+        <!-- Tab content -->
+        <div id="Claim" class="tabcontent">
+            <div class="c2a">
+                <form>
+                    <h2>Your Rewards</h2>
+					View and Claim all Your Earnings!
+					<br><br><br><br>
+                    <div class="form-item-container" id="claim-info"></div>
+                    <div type="submit" class="c2a-1 submit equal-gradient c2abtn" onclick="claim()">Claim Rewards</div>
+                    <br><br>
+                </form>
+            </div>
+        </div>
+        <!-- Tab content -->
+        <div id="Unstake" class="tabcontent">
+            <div class="c2a">
+                <form>
+                    <h2>Un-Stake <span id="unstake-wrapname-1">_</span></h2>
+					Withdraw tokens from Staking Gauge
+					<br><br><br><br>
+                    <div class="form-item-container">
+                        <label for="">1. Unstake</label>
+                        <div class="hint" onclick="openTab(event,'Mint');">Switch to Unstake tab.</div>
+                    </div>
+                    <br><br>
+                    <div class="form-item-container">
+                        <label for="">2. Enter amount to Withdraw</label>
+                        <div class="hint" id="unstake-bal">Balance: -.-- <span id="unstake-wrapname-2">_</span></div>
+                        <input required class="in-box" id="unstake-amt" type="number" placeholder="1337" step="1" min="1">
+                    </div>
+                    <div type="submit" class="c2a-1 submit equal-gradient c2abtn" onclick="unstake(false)">Unstake</div>
+                    <div type="submit" class="c2a-1 submit equal-gradient c2abtn" onclick="unstake(true)">Unstake Max</div>
+                    <br><br>
+                    <div class="form-item-container">
+                        <label for="">3. Withdraw</label>
+                        <div class="hint" onclick="openTab(event,'Redeem');">Switch to Withdraw tab.<br>Or use <span id="unstake-wrapname-3">_</span> elsewhere!</div>
+                    </div>
+                    <br><br>
+                </form>
+            </div>
+        </div>
+        <!-- Tab content -->
+        <div id="Redeem" class="tabcontent">
+            <div class="c2a">
+                <form>
+                    <h2>Redeem <span id="redeem-wrapname-1">_</span></h2>
+					Unwrap 1:1 to <span id="redeem-basename-2">_</span> at anytime!
+					<br><br><br><br>
+                    <div class="form-item-container">
+                        <label for="">1. Unstake</label>
+                        <div class="hint" onclick="openTab(event,'Mint');">Switch to Unstake tab.</a></div>
+                    </div>
+                    <br><br>
+                    <div class="form-item-container">
+                        <label for="">2. Enter amount to unwrap</label>
+                        <div class="hint" id="redeem-bal">Balance: -.-- <span id="redeem-wrapname-3">_</span></div>
+                        <input required class="in-box" id="redeem-amt" type="number" placeholder="1337" step="1" min="1">
+                    </div>
+                    <div type="submit" class="c2a-1 submit equal-gradient c2abtn" onclick="redeem(false)">Redeem</div>
+                    <div type="submit" class="c2a-1 submit equal-gradient c2abtn" onclick="redeem(true)">Redeem Max</div>
+                    <br><br>
+                    <div class="form-item-container">
+                        <label for="">3. Well Done!</label>
+                        <div class="hint">Your <span id="redeem-basename-4">_</span> is back in your wallet!</div>
+                    </div>
+                    <br><br>
+                </form>
+            </div>
+        </div>
+
+        <footer>
+        	<h2>Powered by Guru Network</h2>
+        	<div class="social">
+            	<a target="_blank" href="https://discord.gg/QpyfMarNrV"><img src="https://ftm.guru/icons/discord.svg" alt="Discord"></a>
+            	<a target="_blank" href="https://twitter.com/FTM1337"><img src="https://ftm.guru/icons/twitter.svg" alt="Twitter"></a>
+            	<a target="_blank" href="https://dune.com/eliteness"><img src="https://ftm.guru/icons/dune.svg" alt="Dune"></a>
+            	<a target="_blank" href="https://defillama.com/protocol/guru-network-dao"><img src="https://ftm.guru/icons/defillama.svg" alt="Defillama"></a>
+            	<a target="_blank" href="https://coinmarketcap.com/currencies/elite-1337"><img src="https://ftm.guru/icons/cmc.svg" alt="CoinMarketCap"></a>
+            	<a target="_blank" href="https://ftm.guru/docs"><img src="https://ftm.guru/icons/docs.svg" alt="Docs"></a>
+        	</div>
+		</footer>
+
+    </div>
+
+    <!-- Ignore Below Block : Dev Logs -->
+    <div style="display:none">
+        <span id="cw_m"></span>
+        <div id="connect">
+            Please connect your web3 wallet.
+            <button onclick="cw()" id="btn-connect">Connect</button>
+        </div>
+        <div id="switch">
+            <b id="btn-switch" onclick="cw()">
+                <span id="cw"></span>
+            </b>
+            <div>Balance: <b id="usb-mtv">?</b> USDC</div>
+            <span>Wallet at Fantom Opera. <a href="index.html" style="color:aqua;">Change?</a></span>
+        </div>
+    </div>
+    <!-- Ignore Above Block : Dev Logs -->
+
+    <script src="https://ftm.guru/ethers-5.2.umd.min.js"></script>
+    <script src="index.js"></script>
+    <script>
+        RPC_URL = "https://rpc.soniclabs.com";
+        CHAINID = 146;
+        CHAIN_NAME = "Sonic";
+        CHAIN_GAS = "S";
+        DECIMAL = 6;
+        EXPLORE = "https://sonicscan.org/";
+        EXPLORT = EXPLORE + "tx/";
+        EXPLORA = EXPLORE + "address/";
+        TVLGURU = "0x2696f94f11dfF0d77875E2652FCdB537274B9CE7";
+        NATIVE = "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
+        NATIVE_NAME = "S";
+        NATIVE_LOGO = "https://ftm.guru/icons/sonic.png";
+        LOGOS = "https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/128x128/";
+
+		BASE = "0x0966CAE7338518961c2d35493D3EB481A75bb86B";
+		BASE_NAME = "stkscUSD";
+		BASE_LOGO = LOGOS + "0xd3dce716f3ef535c5ff8d041c1a41c3bd89b97ae" + ".png";
+		BASE_DEC = 6;
+
+		VENFT = "0x0966CAE7338518961c2d35493D3EB481A75bb86B";
+		VENFT_NAME = "veUSD";
+		VENFT_LOGO = LOGOS + "0xd3dce716f3ef535c5ff8d041c1a41c3bd89b97ae" + ".png";
+		VENFT_DEC = 6;
+		VENFT_MAXTIME = 365 * 24 * 60 * 60;
+
+		WRAP = "0xd4aa386bfceeedd9de0875b3ba07f51808592e22";
+		WRAP_NAME = "eliteRingsScUSD";
+		WRAP_LOGO = BASE_LOGO;
+		WRAP_DEC = 6;
+
+		DEPOSITOR = "0xb0c855a7fb3716ebc1c4505218de4bf2186125ba";
+
+		VOTER = "0xB84194E28f624BBBA3C9181F3a1120eE76469337";
+
+		FARM = "";
+		TEARNED = [];
+		TEARNED_LOGO = [];
+		TEARNED_NAME = [];
+
+		VOTER = "0xB84194E28f624BBBA3C9181F3a1120eE76469337";
+
+		MARKET_NAME = "Rings";
+		MARKET_LOGO = "https://ftm.guru/icons/rings.png";
+
+		CTOKEN = "0x4D85bA8c3918359c78Ed09581E5bc7578ba932ba"; 	//stkscUSD (without 'w')
+    </script>
+</body>
+</html>
