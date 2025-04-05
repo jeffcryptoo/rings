@@ -431,7 +431,8 @@ async function gubs() {
 	$("topstat-wrap-ts").innerHTML = fornum(STATE.global.wrap_ts, WRAP_DEC);
 	$("topstat-base-per-wrap").innerHTML = (Number(STATE.global.base_per_wrap)/1e18).toFixed(6);
 	$("topstat-dom").innerHTML = (Number(STATE.global.venft_amt)/Number(STATE.global.venft_ts)*100).toFixed(6)+"%";
-	$("mint-dep-fee").innerHTML = fornum(Number(STATE.global.fees_mdb)/1e18*100,0) + "%";
+	$("mint-fee").innerHTML = fornum(Number(STATE.global.fees_mdb)/1e18*100,0) + "%";
+	("redeem-fee").innerHTML = fornum((Number(STATE.global.fees_rd)+Number(STATE.global.fees_rb))/1e18*100,0) + "%";
 
 
 	$("mint-bal").innerHTML = `Balance: ${ Number(STATE.user.venft_bal) } ${ VENFT_NAME}`;
