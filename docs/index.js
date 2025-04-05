@@ -518,6 +518,7 @@ async function mint(_id, _idi) {
 
 
 return;
+/*
 	alert(ismax)
 	_BASE = new ethers.Contract(BASE, LPABI, signer);
 	_WRAP = new ethers.Contract(WRAP, LPABI, signer);
@@ -593,6 +594,7 @@ return;
 		<h4><a target="_blank" href="${EXPLORE}/tx/${_tr.hash}">View on Explorer</a></h4>
 	`);
 	gubs();
+*/
 }
 
 async function redeem(ismax) {
