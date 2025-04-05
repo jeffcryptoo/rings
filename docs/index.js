@@ -55,8 +55,8 @@ async function basetrip()
 		if((typeof Number(window.ethereum.chainId) == "number")){$("cw_m").innerHTML = "Wrong network! Switch from " + Number(window.ethereum.chainId)+" to "+CHAINID}
 		provider = new ethers.providers.JsonRpcProvider(RPC_URL);
 		signer = provider.getSigner()
-		$("connect").innerHTML=`Wallet not found.<br><br><button onclick="window.location.reload()" class="c2a-1 submit equal-gradient c2abtn">Retry?</button>`;
-		notice(`Wallet not found.<br><br><button onclick="window.location.reload()" class="c2a-1 submit equal-gradient c2abtn">Retry?</button>`);
+		$("connect").innerHTML=`Wallet not found.<br><br><button onclick="window.location.freload()" class="c2a-1 submit equal-gradient c2abtn">Retry?</button>`;
+		notice(`Wallet not found.<br><br><button onclick="window.location.freload()" class="c2a-1 submit equal-gradient c2abtn">Retry?</button>`);
 	}
 
 	if(
@@ -77,8 +77,8 @@ async function basetrip()
         		blockExplorerUrls: [EXPLORE]
     		}]
 		});
-		//window.location.reload()
-		notice(`Switching Network...<br>Please Refresh the Page<br><button onclick="window.location.reload()" class="c2a-1 submit equal-gradient c2abtn">Refresh</button>`);
+		//window.location.freload()
+		notice(`Switching Network...<br>Please Refresh the Page<br><button onclick="window.location.freload()" class="c2a-1 submit equal-gradient c2abtn">Refresh</button>`);
 	}
 	//DrefreshFarm()
 	arf()
@@ -128,14 +128,14 @@ async function cw() {
 	cw2();
 }
 async function cw2() {
-	if(!(window.ethereum)){notice(`Metamask not detected!<br>Please Refresh the Page<br><button onclick="window.location.reload()" class="c2a-1 submit equal-gradient c2abtn">Refresh</button>`);return(0)}
-	if(!(Number(window.ethereum.chainId)==CHAINID)){notice(`Wrong network detected!<br>Please switch to chain ID ${CHAINID} and refresh this page.<br><button onclick="window.location.reload()" class="c2a-1 submit equal-gradient c2abtn">Refresh</button>`);return(0)}
-	if(typeof provider == "undefined"){notice(`Provider not detected!<br>Please connect with a web3 provider or wallet and refresh this page.<br><button onclick="window.location.reload()" class="c2a-1 submit equal-gradient c2abtn">Refresh</button>`);return(0)}
+	if(!(window.ethereum)){notice(`Metamask not detected!<br>Please Refresh the Page<br><button onclick="window.location.freload()" class="c2a-1 submit equal-gradient c2abtn">Refresh</button>`);return(0)}
+	if(!(Number(window.ethereum.chainId)==CHAINID)){notice(`Wrong network detected!<br>Please switch to chain ID ${CHAINID} and refresh this page.<br><button onclick="window.location.freload()" class="c2a-1 submit equal-gradient c2abtn">Refresh</button>`);return(0)}
+	if(typeof provider == "undefined"){notice(`Provider not detected!<br>Please connect with a web3 provider or wallet and refresh this page.<br><button onclick="window.location.freload()" class="c2a-1 submit equal-gradient c2abtn">Refresh</button>`);return(0)}
 	/*
 	if(!
 		(isFinite(Number(accounts[0])))
 		|| (isFinite(Number(window.ethereum.selectedAddress)))
-	){console.log("NAAAAAAAAAAAAAAAAA");window.location.reload();}
+	){console.log("NAAAAAAAAAAAAAAAAA");window.location.freload();}
 	*/
 
 	//004
@@ -165,13 +165,13 @@ async function cw2() {
       console.log("addresses:",addresses)
     } catch (e) {
       console.log("error in request", e);
-      window.location.reload(true);
+      window.location.freload(true);
     }
     */
 
     //002
     //try{await provider.send("eth_requestAccounts", []);console.log("CWE:",e);}//await window.ethereum.enable();
-	//catch(e){console.log("CWE:",e);window.location.reload(true)}
+	//catch(e){console.log("CWE:",e);window.location.freload(true)}
 	console.log("doing the paints")
 	$("cw").innerHTML= (window.ethereum.selectedAddress).substr(0,10) +"..."+(window.ethereum.selectedAddress).substr(34);
 	if(window.ethereum.chainId==250) (new ethers.Contract("0x14ffd1fa75491595c6fd22de8218738525892101",["function getNames(address) public view returns(string[] memory)"],provider)).getNames(window.ethereum.selectedAddress).then(rn=>{if(rn.length>0){$("cw").innerHTML="hi, <span style='/*font-family:bold;font-size:1.337em*/'>"+rn[0]+"</span> 👋"}else{$("cw").innerHTML= (window.ethereum.selectedAddress).substr(0,10) +"..."+(window.ethereum.selectedAddress).substr(34);}})

@@ -552,7 +552,7 @@ button:disabled, .c2abtn:disabled {
 }
 .mint-table-row {
     display:grid;
-    grid-template-columns:auto auto auto 100px ;
+    /*grid-template-columns:auto auto auto 100px ;*/
 }
 .mint-table-row div:last-child {
     position: relative;
