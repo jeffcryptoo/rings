@@ -443,7 +443,7 @@ async function gubs() {
 		<div class="mint-table-row">
 			<div>${ VENFT_NAME} ID # ${ e[0] } </div>
 			<div>Melt ${ fornum5(e[1], BASE_DEC) } ${ BASE_NAME } nft,</div>
-			<div>Get ${ fornum5( Number(e[1]) * Number(STATE.global.base_per_wrap)/1e18, WRAP_DEC) } ${ WRAP_NAME } </div>
+			<div>Get ${ fornum5( Number(e[1]) / (Number(STATE.global.base_per_wrap)/1e18), WRAP_DEC) } ${ WRAP_NAME } </div>
 			<div> <div class="c2abtn submit" onclick="mint(${e[0]},${i})">Mint</div></div>
 		</div>
 	`}).join("<br>")
