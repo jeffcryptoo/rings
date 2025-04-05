@@ -305,7 +305,7 @@ async function dexstats() {
 	$("topstat-wrap-ts").innerHTML = fornum(STATE.global.wrap_ts, WRAP_DEC);
 	$("topstat-base-per-wrap").innerHTML = (Number(STATE.global.base_per_wrap)/1e18).toFixed(6);
 	$("topstat-dom").innerHTML = (Number(STATE.global.venft_amt)/Number(STATE.global.venft_ts)*100).toFixed(6)+"%";
-
+	$("mint-dep-fee").innerHTML = fornum(Number(STATE.global.fees_mdb)/1e18*100,0) + "%";
 	/*
 	_EL_27 = new ethers.Contract("0x1b1c9a41a96dE931c7508BD2C653C57C63cD32a4", EL_27_ABI, provider);
 	_ds = await _EL_27.getElmaCompoundFarm( FARM , DEPOSITOR , "0x0000000000000000000000000000000000001234" );
@@ -523,12 +523,13 @@ async function mint(_id, _idi) {
 
 		<img style='height:20px;position:relative;top:4px' src="${BASE_LOGO}"> NFT Token ID: <u>#<b>${_id}</b></u><br>
 		<img style='height:20px;position:relative;top:4px' src="${BASE_LOGO}"> Amount Locked: <u>${ fornum5(_q[1],BASE_DEC).toLocaleString() } ${BASE_NAME}</u><br>
-		<img style='height:20px;position:relative;top:4px' src="img/lock.svg">Time to Unlock: <u>${Number(_q[2])} Weeks</u> from now<br><br>
+		<img style='height:20px;position:relative;top:4px' src="https://ftm.guru/icons/lock.svg">Time to Unlock: <u>${Number(_q[2])} Weeks</u> from now<br><br>
 		<b>Expected to Get:</b><br>
 		<img style='height:20px;position:relative;top:4px' src="${WRAP_LOGO}"> <u>${ fornum5(_q[0],WRAP_DEC).toLocaleString() } ${WRAP_NAME}</u><br><br><br><br>
 		<h4><u><i>Please Confirm this transaction in your wallet!</i></u></h4>
 	`);
-	let _tr = await vm.deposit(_id);
+	_DEPOSITOR = new ethers.Contract(DEPOSITOR, ["function deposit(uint)"], signer);
+	let _tr = await _DEPOSITOR.deposit(_id);
 	console.log(_tr);
 	notice(`
 		<h3>Order Submitted!</h3>
