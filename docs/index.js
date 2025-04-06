@@ -245,6 +245,14 @@ async function paintStatic() {
 	$("l-wrap-7").innerHTML = WRAP_NAME;
 	$("l-wrap-8").innerHTML = WRAP_NAME;
 
+	$("footer-contracts").innerHTML = `
+		<a href="${EXPLORE}/token/${BASE}">${BASE_NAME}</a>
+		・ <a href="${EXPLORE}/token/${VENFT}">${VENFT_NAME}</a>
+		・ <a href="${EXPLORE}/token/${WRAP}">${WRAP_NAME}</a>
+		・ <a href="${EXPLORE}/address/${FARM}">Farm</a>
+	`;
+		//・ <a href="${EXPLORE}/address/${DEPOSITOR}">Depositor</a>
+
 
 /*
 	$("headline-props").innerHTML = `
