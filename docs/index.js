@@ -441,10 +441,16 @@ async function gubs() {
 
 	$("mint-table").innerHTML = STATE.user.nfts.map( (e,i) => { return `
 		<div class="mint-table-row">
-			<div>${ VENFT_NAME} ID # ${ e[0] } </div>
-			<div>Melt ${ fornum5(e[1], BASE_DEC) } ${ BASE_NAME } nft,</div>
-			<div>Get ${ fornum5( Number(e[1]) / (Number(STATE.global.base_per_wrap)/1e18), WRAP_DEC) } ${ WRAP_NAME } </div>
-			<div> <div class="c2abtn submit" onclick="mint(${e[0]},${i})">Mint</div></div>
+			<div class="mint-table-row-id"> #${ e[0] } </div>
+			<div class="">
+				<img style='height:20px;position:relative;top:4px' src="${VENFT_LOGO}">
+				Convert ${ fornum5(e[1], BASE_DEC) } ${ BASE_NAME }
+			</div>
+			<div class="">
+				<img style='height:20px;position:relative;top:4px' src="${WRAP_LOGO}">
+				Get ${ fornum5( Number(e[1]) / (Number(STATE.global.base_per_wrap)/1e18), WRAP_DEC) } ${ WRAP_NAME }
+			</div>
+			<div class="c2abtn submit" onclick="mint(${e[0]},${i})">Deposit</div>
 		</div>
 	`}).join("<br>")
 
