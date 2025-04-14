@@ -247,6 +247,7 @@ async function paintStatic() {
 	$("l-wrap-9").innerHTML = WRAP_NAME;
 	$("l-wrap-10").innerHTML = WRAP_NAME;
 	$("l-wrap-11").innerHTML = WRAP_NAME;
+	$("l-wrap-12").innerHTML = WRAP_NAME;
 
 	$("l-sct-1").innerHTML = SCT_NAME;
 	$("l-sct-2").innerHTML = SCT_NAME;
@@ -507,7 +508,7 @@ async function zap(ismax) {
 		_oamt = BigInt(Math.floor(_oamt * (10**SCT_DEC)))
 	}
 
-	_wrapout = _oamt * 1e18 / STATE.global.base_per_wrap;
+	_wrapout = _oamt * (10n**18n) / STATE.global.base_per_wrap;
 
 	if(Number(_oamt)>Number(al[1])) {notice(`<h2>Insufficient Balance!</h2><h3>Desired Amount:</h3>${Number(_oamt)/(10**SCT_DEC)}<br><h3>Actual Balance:</h3>${Number(al[1])/(10**SCT_DEC)}<br><br><b>Please reduce the amount and retry again, or accumulate some more ${SCT_NAME}.`);return}
 
