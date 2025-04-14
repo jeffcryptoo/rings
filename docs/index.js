@@ -491,7 +491,7 @@ async function zap(ismax) {
 	_SCT_ZAP = new ethers.Contract(ZAP_SCT, ["function zapSCT(uint,uint) returns(uint)"],signer);
 
 	al = await Promise.all([
-		_SCT.allowance(window.ethereum.selectedAddress, FARM),
+		_SCT.allowance(window.ethereum.selectedAddress, ZAP_SCT),
 		_SCT.balanceOf(window.ethereum.selectedAddress)
 	]);
 
