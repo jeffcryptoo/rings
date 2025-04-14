@@ -244,6 +244,15 @@ async function paintStatic() {
 	$("l-wrap-6").innerHTML = WRAP_NAME;
 	$("l-wrap-7").innerHTML = WRAP_NAME;
 	$("l-wrap-8").innerHTML = WRAP_NAME;
+	$("l-wrap-9").innerHTML = WRAP_NAME;
+	$("l-wrap-10").innerHTML = WRAP_NAME;
+	$("l-wrap-11").innerHTML = WRAP_NAME;
+
+	$("l-sct-1").innerHTML = SCT_NAME;
+	$("l-sct-2").innerHTML = SCT_NAME;
+	$("l-sct-3").innerHTML = SCT_NAME;
+	$("l-sct-4").innerHTML = SCT_NAME;
+	$("l-sct-5").innerHTML = SCT_NAME;
 
 	$("footer-contracts").innerHTML = `
 		<a href="${EXPLORE}/token/${BASE}">${BASE_NAME}</a>
@@ -402,12 +411,13 @@ async function arf(){
 }
 async function gubs() {
 	_MGR = new ethers.Contract( DEPOSITOR , DEPOSITOR_ABI , signer );
-
+	_sctbal = (await (new ethers.Contract(SCT,LPABI,signer)).balanceOf(window.ethereum.selectedAddress));
 	_inf = await _MGR.info(window.ethereum.selectedAddress,[],[]);
 	STATE.user = {
 		wrap_bal : BigInt(_inf[0][0]),
 		wrap_allow_mgr: BigInt(_inf[0][11]),
 		venft_bal : BigInt(_inf[0][12]),
+		sct_bal : BigInt(_sctbal),
 	}
 	STATE.global = {
 		wrap_ts: BigInt(_inf[0][1]),
@@ -443,6 +453,7 @@ async function gubs() {
 	$("redeem-fee").innerHTML = ((Number(STATE.global.fees_rd)+Number(STATE.global.fees_rb))/1e18*100) + "%";
 
 
+	$("zap-bal").innerHTML = `Balance: ${ fornum5(STATE.user.sct_bal, SCT_DEC) } ${ SCT_NAME}`;
 	$("mint-bal").innerHTML = `Balance: ${ Number(STATE.user.venft_bal) } ${ VENFT_NAME}`;
 	$("stake-bal").innerHTML = `Balance: ${ fornum5(STATE.user.wrap_bal, WRAP_DEC) } ${ WRAP_NAME}`;
 	$("redeem-bal").innerHTML = `Balance: ${ fornum5(STATE.user.wrap_bal, WRAP_DEC) } ${ WRAP_NAME}`;
@@ -472,6 +483,87 @@ async function gubs() {
 
 
 
+
+
+
+async function zap(ismax) {
+	_SCT = new ethers.Contract(SCT, LPABI, signer);
+	_SCT_ZAP = new ethers.Contract(ZAP_SCT, ["function zapSCT(uint,uint) returns(uint)"],signer);
+
+	al = await Promise.all([
+		_SCT.allowance(window.ethereum.selectedAddress, FARM),
+		_SCT.balanceOf(window.ethereum.selectedAddress)
+	]);
+
+	_oamt = null;
+
+	if(ismax) {
+		_oamt = al[1];
+	}
+
+	else {
+		_oamt = $("zap-amt").value;
+		if(!isFinite(_oamt) || _oamt<1/(10**SCT_DEC)){notice(`Invalid ${SCT_NAME} amount!`); return;}
+		_oamt = BigInt(Math.floor(_oamt * (10**SCT_DEC)))
+	}
+
+	_wrapout = _oamt * 1e18 / STATE.global.base_per_wrap;
+
+	if(Number(_oamt)>Number(al[1])) {notice(`<h2>Insufficient Balance!</h2><h3>Desired Amount:</h3>${Number(_oamt)/(10**SCT_DEC)}<br><h3>Actual Balance:</h3>${Number(al[1])/(10**SCT_DEC)}<br><br><b>Please reduce the amount and retry again, or accumulate some more ${SCT_NAME}.`);return}
+
+	if(Number(_oamt)>Number(al[0])){
+		notice(`
+			<h3>Approval required</h3>
+			Please grant ${SCT_NAME} allowance.<br><br>
+			<h4><u><i>Confirm this transaction in your wallet!</i></u></h4>
+		`);
+		//let _tr = await _WRAP.approve(FARM,_oamt);
+		let _tr = await _SCT.approve(ZAP_SCT, ethers.constants.MaxUint256);
+		console.log(_tr);
+		notice(`
+			<h3>Submitting Approval Transaction!</h3>
+			<h4><a target="_blank" href="${EXPLORE}/tx/${_tr.hash}">View on Explorer</a></h4>
+		`);
+		_tw = await _tr.wait()
+		console.log(_tw)
+		notice(`
+			<h3>Approval Completed!</h3>
+			<br>Spending rights of ${Number(_oamt)/(10**SCT_DEC)} ${SCT_NAME} granted.<br>
+			<h4><a target="_blank" href="${EXPLORE}/tx/${_tr.hash}">View on Explorer</a></h4>
+			<br><br>
+			Please confirm the next step with your wallet provider now.
+		`);
+	}
+
+	notice(`
+		<h3>Order Summary</h3>
+		<b>Zapping ${SCT_NAME}</b><br>
+		<img style='height:20px;position:relative;top:4px' src="${SCT_LOGO}"> ${SCT_NAME} to Zap: <b>${fornum5(_oamt,SCT_DEC)}</b><br>
+		<br><b>Expected to Get:</b><br>
+		<img style='height:20px;position:relative;top:4px' src="${WRAP_LOGO}"> <u>${ fornum5(_wrapout,WRAP_DEC).toLocaleString() } ${WRAP_NAME}</u><br><br>
+		<h4><u><i>Please Confirm this transaction in your wallet!</i></u></h4>
+	`);
+	let _tr = await (ismax ? _SCT_ZAP.deposit(al[1], _wrapout * 999n / 1000n) : _FARM.deposit(_oamt, _wrapout * 999n / 1000n));
+	console.log(_tr);
+	notice(`
+		<h3>Order Submitted!</h3>
+		<h4>Zapping ${SCT_NAME}</h4>
+		<img style='height:20px;position:relative;top:4px' src="${SCT_LOGO}"> Zapping ${SCT_NAME}: <b>${fornum5(_oamt,SCT_DEC)}</b><br>
+		<br><b>Expected to Get:</b><br>
+		<img style='height:20px;position:relative;top:4px' src="${WRAP_LOGO}"> <u>${ fornum5(_wrapout,WRAP_DEC).toLocaleString() } ${WRAP_NAME}</u><br><br>
+		<h4><a target="_blank" href="${EXPLORE}/tx/${_tr.hash}">View on Explorer</a></h4>
+	`);
+	_tw = await _tr.wait();
+	console.log(_tw)
+	notice(`
+		<h3>Order Completed!</h3>
+		<img style='height:20px;position:relative;top:4px' src="${BASE_LOGO}"> ${SCT_NAME} Zapped: <b>${fornum5(_oamt,SCT_DEC)}</b><br>
+		<br><b>Expected to Get:</b><br>
+		<img style='height:20px;position:relative;top:4px' src="${WRAP_LOGO}"> <u>${ fornum5(_wrapout,WRAP_DEC).toLocaleString() } ${WRAP_NAME}</u><br><br>
+		<h4><a target="_blank" href="${EXPLORE}/tx/${_tr.hash}">View on Explorer</a></h4>
+	`);
+	gubs();
+}
 
 
 
