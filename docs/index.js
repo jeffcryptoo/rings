@@ -544,7 +544,7 @@ async function zap(ismax) {
 		<img style='height:20px;position:relative;top:4px' src="${WRAP_LOGO}"> <u>${ fornum5(_wrapout,WRAP_DEC).toLocaleString() } ${WRAP_NAME}</u><br><br>
 		<h4><u><i>Please Confirm this transaction in your wallet!</i></u></h4>
 	`);
-	let _tr = await (ismax ? _SCT_ZAP.deposit(al[1], _wrapout * 999n / 1000n) : _FARM.deposit(_oamt, _wrapout * 999n / 1000n));
+	let _tr = await (ismax ? _SCT_ZAP.zapSCT(al[1], _wrapout * 999n / 1000n) : _SCT_ZAP.zapSCT(_oamt, _wrapout * 999n / 1000n));
 	console.log(_tr);
 	notice(`
 		<h3>Order Submitted!</h3>
