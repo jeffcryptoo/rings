@@ -77,9 +77,12 @@
         <div class="tab">
             <button class="tablinks" onclick="openTab(event, 'Zap')" id="tablinks_Zap">Zap</button>
             <button class="tablinks" onclick="openTab(event, 'Mint')" id="tablinks_Mint">Mint</button>
-            <button class="tablinks" onclick="alert('Staking features will be Available from 10th April 2025!');return;openTab(event, 'Stake')" id="tablinks_Stake">Stake</button>
-            <button class="tablinks" onclick="alert('Staking features will be Available from 10th April 2025!');return;openTab(event, 'Claim')" id="tablinks_Claim">Claim</button>
-            <button class="tablinks" onclick="alert('Staking features will be Available from 10th April 2025!');return;openTab(event, 'Unstake')" id="tablinks_Unstake">Unstake</button>
+            <button class="tablinks" onclick="openTab(event, 'Earn')" id="tablinks_Earn">Earn</button>
+            <button class="tablinks" onclick="alert('Staking features will be Available at 500k TVL!');return;openTab(event, 'Stake')" id="tablinks_Stake">Stake</button>
+            <!--
+            <button class="tablinks" onclick="alert('Staking will be Available at 500k TVL!');return;openTab(event, 'Claim')" id="tablinks_Claim">Claim</button>
+            <button class="tablinks" onclick="alert('Staking will be Available at 500k TVL!');return;openTab(event, 'Unstake')" id="tablinks_Unstake">Unstake</button>
+            -->
             <button class="tablinks" onclick="openTab(event, 'Redeem')" id="tablinks_Redeem">Redeem</button>
         </div>
 
@@ -140,6 +143,21 @@
                     <br><br>
                 </form>
             </div>
+        </div>
+        <!-- Tab content -->
+        <div id="Earn" class="tabcontent">
+        	<div class="c2a c2a90" align="center" style="margin:auto">
+        		<div class="c2a90-table" id="partner-pools-table" align="center" style="display:grid;">
+					<div class="c2a90-row">
+						<div onclick="sortit(0, 'mainstage', 'c2a90-row', 'c2a90-row-item', null, 1, 0)">Pool			<br><span class="c2a90-row-byline">Constituent Assets</span></div>
+						<div onclick="sortit(1, 'mainstage', 'c2a90-row', 'c2a90-row-item', null, 1, 0)">Platform		<br><span class="c2a90-row-byline">Category</span></div>
+						<div onclick="sortit(2, 'mainstage', 'c2a90-row', 'c2a90-row-item', null, 1, 0)">Rewards		<br><span class="c2a90-row-byline">Tokens, Points, etc</span></div>
+						<div onclick="sortit(2, 'mainstage', 'c2a90-row', 'c2a90-row-item', null, 1, 0)">Description		<br><span class="c2a90-row-byline">Guidelines</span></div>
+					</div>
+
+
+				</div>
+        	</div>
         </div>
         <!-- Tab content -->
         <div id="Stake" class="tabcontent">
@@ -321,6 +339,8 @@ BASE = "0x4D85bA8c3918359c78Ed09581E5bc7578ba932ba";
 		DEPOSITOR = "0xb0c855a7fb3716ebc1c4505218de4bf2186125ba";
 		ZAP_SCT = "0x7f142a18f1B476809c4994C63811feF4afD14134";
 
+		STKSCT_TELLER = "0x5e39021ae7d3f6267dc7995bb5dd15669060dae0"
+
 		FARM = "";
 		TEARNED = [];
 		TEARNED_LOGO = [];
@@ -331,6 +351,49 @@ BASE = "0x4D85bA8c3918359c78Ed09581E5bc7578ba932ba";
 		MARKET_LOGO = "https://ftm.guru/icons/rings.png";
 
 		CTOKEN = "0x4D85bA8c3918359c78Ed09581E5bc7578ba932ba"; 	//stkscUSD (without 'w')
+
+
+		DOCS_LINK = "https://ftm.guru/docs/eliteRingsScUSD";
+
+
+		PARTNER_POOLS = [
+		{
+			link : "https://sonic.equalizer.exchange/liquidity?search=eliteRingsScUSD",
+			tokens: [
+				{ name: "xUSD" , icon:"https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/128x128/0x6202b9f02e30e5e1c62cc01e4305450e5d83b926.png" } ,
+				{ name: "eliteRingsScUSD" , icon:"https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/128x128/0xd4aa386bfceeedd9de0875b3ba07f51808592e22.png" } ,
+			],
+			platforms: [
+				{ name: "Equalizer" , icon:"https://ftm.guru/icons/ftm.svg" , subtext: "DEX" } ,
+			],
+			rewards : [
+				{ name: "EQUAL" , icon:"https://ftm.guru/icons/equal.png" } ,
+				{ name: "DIAMONDS" , icon:"https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/128x128/0xdbde38013d44ae23badc4cd8081271b8028ecaf4.png" } ,
+				{ name: "Stream internal APY" , icon:"https://ftm.guru/icons/streamprotocol.svg" } ,
+			],
+			desc : [
+				{ maintext: "Provide Liquidity to Stableswap 2Pool of xUSD/eliteRingsScUSD" }
+			]
+		} ,
+		{
+			link : "https://sonic.equalizer.exchange/liquidity?search=eliteRingsScUSD",
+			tokens: [
+				{ name: "USDC.e" , icon:"https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/128x128/0x29219dd400f2bf60e5a23d13be72b486d4038894.png" } ,
+				{ name: "eliteRingsScUSD" , icon:"https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/128x128/0xd4aa386bfceeedd9de0875b3ba07f51808592e22.png" } ,
+			],
+			platforms: [
+				{ name: "Equalizer" , icon:"https://ftm.guru/icons/ftm.svg" , subtext: "DEX" } ,
+			],
+			rewards : [
+				{ name: "EQUAL" , icon:"https://ftm.guru/icons/equal.png" } ,
+				{ name: "DIAMONDS" , icon:"https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/128x128/0xdbde38013d44ae23badc4cd8081271b8028ecaf4.png" } ,
+				{ name: "6x Sonic Points" , icon:"https://ftm.guru/icons/sonic.png" } ,
+			],
+			desc : [
+				{ maintext: "Provide Liquidity to Stableswap 2Pool of USDC.e/eliteRingsScUSD" }
+			]
+		} ,
+	]
     </script>
 </body>
 </html>

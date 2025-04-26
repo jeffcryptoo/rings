@@ -256,12 +256,32 @@ async function paintStatic() {
 	$("l-sct-5").innerHTML = SCT_NAME;
 
 	$("footer-contracts").innerHTML = `
-		<a href="${EXPLORE}/token/${BASE}">${BASE_NAME}</a>
-		・ <a href="${EXPLORE}/token/${VENFT}">${VENFT_NAME}</a>
-		・ <a href="${EXPLORE}/token/${WRAP}">${WRAP_NAME}</a>
-		・ <a href="${EXPLORE}/address/${FARM}">Farm</a>
+		<a target="_blank" href="${EXPLORE}/token/${BASE}">${BASE_NAME}</a>
+		・ <a target="_blank" href="${EXPLORE}/token/${VENFT}">${VENFT_NAME}</a>
+		・ <a target="_blank" href="${EXPLORE}/token/${WRAP}">${WRAP_NAME}</a>
+		・ <a target="_blank" href="${EXPLORE}/address/${STKSCT_TELLER}">Teller</a>
+		・ <a target="_blank" href="${EXPLORE}/address/${ZAP_SCT}">Zapper</a>
+		<br>
+		<a target="_blank" href="${DOCS_LINK}">Read our Docs</a>
 	`;
 		//・ <a href="${EXPLORE}/address/${DEPOSITOR}">Depositor</a>
+	$("partner-pools-table").innerHTML += PARTNER_POOLS.map(pool => `
+    <div class="c2a90-row c2a90-row-port" onclick="window.open('${pool.link}','_blank')">
+        <div class="c2a90-row-item">
+            ${pool.tokens.map(t => `<div><img src="${t.icon}"> ${t.name}</div>`).join('')}
+        </div>
+        <div class="c2a90-row-item">
+            <div><img src="${pool.platforms[0].icon}"> ${pool.platforms[0].name}</div>
+            <div class="c2a90-row-item-subtext">${pool.platforms[0].subtext}</div>
+        </div>
+        <div class="c2a90-row-item">
+            ${pool.rewards.map(r => `<div><img src="${r.icon}"> ${r.name}</div>`).join('')}
+        </div>
+        <div class="c2a90-row-item">
+            ${pool.desc[0].maintext}
+        </div>
+    </div>
+`).join('');
 
 
 /*
@@ -773,6 +793,10 @@ return;
 }
 
 async function redeem(ismax) {
+	if( (Date.now() % 604800e3) > (604800e3 - 86400e3) ) {
+		notice(`Redeeming ${WRAP_NAME} to ${VE_NAME} is not available on Wednesdays..<br><br>Please try tomorrow!`);
+	}
+
 	_BASE = new ethers.Contract(BASE, LPABI, signer);
 	_WRAP = new ethers.Contract(WRAP, LPABI, signer);
 	_DEPOSITOR = new ethers.Contract(DEPOSITOR, DEPOSITOR_ABI, signer);

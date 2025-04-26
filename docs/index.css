@@ -366,10 +366,11 @@ footer{
 .c2a90-row div {
     text-align: right;
 }
+/*
 .c2a90-row.c2a90-row-port div:nth-child(n+3) {
     text-align: right;
 }
-
+*/
 .c2a90-row div:nth-child(1),
 .c2a90-row div:nth-child(2),
 .c2a90-row div:nth-child(3) {
@@ -398,6 +399,31 @@ footer{
 .c2a90-table .c2a90-row:first-child .c2a90-row-byline {
     font-family:  !important;
     font-size: 0.7em !important;
+}
+
+.c2a90-row-item-subtext {
+	margin-left: 21px;
+	font-family: light;
+	font-size: 0.8em;
+}
+
+#Earn .c2a90-row-item,
+#Earn .c2a90-row-item div,
+#Earn .c2a90-row-item .c2a90-row-item-subtext,
+#Earn .c2a90-row-item div div  {
+    color: #eee;
+}
+
+#Earn .c2a90-row {
+	grid-template-columns: 180px 180px 220px 320px;
+}
+
+#Earn .c2a90-row-item, #Earn .c2a90-row:first-child div {
+  text-align: left;;
+}
+#Earn img {
+    width: 20px;
+    height: 20px;
 }
 
 .main-amt {
