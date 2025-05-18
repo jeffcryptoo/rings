@@ -324,9 +324,10 @@ footer{
 	grid-gap-columns:5px;
     max-width: -moz-max-content;
     margin: 10px auto;
-	padding: 0 15px;
+	padding: 0px 15px;
 	border-radius: 5px;
 	align-content: ;
+	border-bottom: 1px solid #FFF2;
 }
 
 .c2a90-row-port {
@@ -424,7 +425,12 @@ footer{
 }
 
 #Earn .c2a90-row-item, #Earn .c2a90-row:first-child div {
-  text-align: left;;
+  text-align: left;
+  margin-bottom: 15px;
+}
+#Earn .c2a90-row .c2a90-row-item:first-child {
+  font-weight: 900;
+  font-size: 1.1em;
 }
 #Earn img {
     width: 20px;

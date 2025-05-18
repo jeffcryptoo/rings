@@ -265,14 +265,17 @@ async function paintStatic() {
 		<a target="_blank" href="${DOCS_LINK}">Read our Docs</a>
 	`;
 		//・ <a href="${EXPLORE}/address/${DEPOSITOR}">Depositor</a>
+
+	$("partner-pools-table-title").innerHTML = "Discover " + PARTNER_POOLS.length + " opportunities to Earn with your eliteRingsScUSD!";
+
 	$("partner-pools-table").innerHTML += PARTNER_POOLS.map(pool => `
     <div class="c2a90-row c2a90-row-port" onclick="window.open('${pool.link}','_blank')">
         <div class="c2a90-row-item">
-            ${pool.tokens.map(t => `<div><img src="${t.icon}"> ${t.name}</div>`).join('')}
-        </div>
-        <div class="c2a90-row-item">
             <div><img src="${pool.platforms[0].icon}"> ${pool.platforms[0].name}</div>
             <div class="c2a90-row-item-subtext">${pool.platforms[0].subtext}</div>
+        </div>
+        <div class="c2a90-row-item">
+            ${pool.tokens.map(t => `<div><img src="${t.icon}"> ${t.name}</div>`).join('')}
         </div>
         <div class="c2a90-row-item">
             ${pool.rewards.map(r => `<div><img src="${r.icon}"> ${r.name}</div>`).join('')}
