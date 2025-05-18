@@ -355,42 +355,102 @@ BASE = "0x4D85bA8c3918359c78Ed09581E5bc7578ba932ba";
 
 		DOCS_LINK = "https://ftm.guru/docs/eliteRingsScUSD";
 
+		TOKENS = {
+			EQUAL : { name: "EQUAL" , icon:"https://ftm.guru/icons/equal.png" } ,
+			USDCE : { name: "USDC.e" , icon:"https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/128x128/0x29219dd400f2bf60e5a23d13be72b486d4038894.png" } ,
+			XUSD  : { name: "xUSD" , icon:"https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/128x128/0x6202b9f02e30e5e1c62cc01e4305450e5d83b926.png" } ,
+			ERUSD : { name: "eliteRingsScUSD" , icon:"https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/128x128/0xd4aa386bfceeedd9de0875b3ba07f51808592e22.png" } ,
+			SFRXUSD : { name: "sfrxUSD" , icon:"https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/128x128/0x5bff88ca1442c2496f7e475e9e7786383bc070c0.png" } ,
+			DIAMONDS : { name: "DIAMONDS" , icon:"https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/128x128/0xdbde38013d44ae23badc4cd8081271b8028ecaf4.png" } ,
+
+		}
+
 
 		PARTNER_POOLS = [
 		{
-			link : "https://sonic.equalizer.exchange/liquidity?search=eliteRingsScUSD",
+			link : "https://sonic.impermax.finance/lending-pool/7/0x98cfa5addcb937c205e35d2bef0885f969dcf958",
 			tokens: [
-				{ name: "xUSD" , icon:"https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/128x128/0x6202b9f02e30e5e1c62cc01e4305450e5d83b926.png" } ,
-				{ name: "eliteRingsScUSD" , icon:"https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/128x128/0xd4aa386bfceeedd9de0875b3ba07f51808592e22.png" } ,
+				TOKENS.ERUSD ,
 			],
 			platforms: [
-				{ name: "Equalizer" , icon:"https://ftm.guru/icons/ftm.svg" , subtext: "DEX" } ,
+				{ name: "Impermax" , icon:"https://ftm.guru/icons/impermax.png" , subtext: "Lending" } ,
 			],
 			rewards : [
-				{ name: "EQUAL" , icon:"https://ftm.guru/icons/equal.png" } ,
-				{ name: "DIAMONDS" , icon:"https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/128x128/0xdbde38013d44ae23badc4cd8081271b8028ecaf4.png" } ,
-				{ name: "Stream internal APY" , icon:"https://ftm.guru/icons/streamprotocol.svg" } ,
+				TOKENS.ERUSD
 			],
 			desc : [
-				{ maintext: "Provide Liquidity to Stableswap 2Pool of xUSD/eliteRingsScUSD" }
+				{ maintext: "Simple Lending. Rewards are auto-compounded." }
 			]
 		} ,
 		{
 			link : "https://sonic.equalizer.exchange/liquidity?search=eliteRingsScUSD",
 			tokens: [
-				{ name: "USDC.e" , icon:"https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/128x128/0x29219dd400f2bf60e5a23d13be72b486d4038894.png" } ,
-				{ name: "eliteRingsScUSD" , icon:"https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/128x128/0xd4aa386bfceeedd9de0875b3ba07f51808592e22.png" } ,
+				TOKENS.XUSD ,
+				TOKENS.ERUSD ,
 			],
 			platforms: [
-				{ name: "Equalizer" , icon:"https://ftm.guru/icons/ftm.svg" , subtext: "DEX" } ,
+				{ name: "Equalizer" , icon: TOKENS.EQUAL.icon , subtext: "DEX" } ,
 			],
 			rewards : [
-				{ name: "EQUAL" , icon:"https://ftm.guru/icons/equal.png" } ,
-				{ name: "DIAMONDS" , icon:"https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/128x128/0xdbde38013d44ae23badc4cd8081271b8028ecaf4.png" } ,
+				TOKENS.EQUAL ,
+				//TOKENS.DIAMONDS,
+				{ name: "Stream internal APY" , icon:"https://ftm.guru/icons/streamprotocol.svg" } ,
+			],
+			desc : [
+				{ maintext: "Provide Liquidity to Stableswap Liquidity Pool." }
+			]
+		} ,
+		{
+			link : "https://sonic.equalizer.exchange/liquidity?search=eliteRingsScUSD",
+			tokens: [
+				TOKENS.USDCE ,
+				TOKENS.ERUSD ,
+			],
+			platforms: [
+				{ name: "Equalizer" , icon: TOKENS.EQUAL.icon , subtext: "DEX" } ,
+			],
+			rewards : [
+				TOKENS.EQUAL ,
+				//TOKENS.DIAMONDS,
 				{ name: "6x Sonic Points" , icon:"https://ftm.guru/icons/sonic.png" } ,
 			],
 			desc : [
-				{ maintext: "Provide Liquidity to Stableswap 2Pool of USDC.e/eliteRingsScUSD" }
+				{ maintext: "Provide Liquidity to Stableswap Liquidity Pool." }
+			]
+		} ,
+		{
+			link : "https://sonic.equalizer.exchange/liquidity?search=eliteRingsScUSD",
+			tokens: [
+				TOKENS.SFRXUSD ,
+				TOKENS.ERUSD ,
+			],
+			platforms: [
+				{ name: "Equalizer" , icon: TOKENS.EQUAL.icon , subtext: "DEX" } ,
+			],
+			rewards : [
+				TOKENS.EQUAL ,
+				//TOKENS.DIAMONDS,
+				//{ name: "6x Sonic Points" , icon:"https://ftm.guru/icons/sonic.png" } ,
+			],
+			desc : [
+				{ maintext: "Provide Liquidity to Stableswap Liquidity Pool." }
+			]
+		} ,
+		{
+			link : "https://sonic.impermax.finance/lending-pool/7/0x98cfa5addcb937c205e35d2bef0885f969dcf958",
+			tokens: [
+				TOKENS.USDCE ,
+				TOKENS.ERUSD ,
+			],
+			platforms: [
+				{ name: "Impermax" , icon:"https://ftm.guru/icons/impermax.png" , subtext: "Leveraged Farming" } ,
+			],
+			rewards : [
+				TOKENS.USDCE,
+				TOKENS.ERUSD
+			],
+			desc : [
+				{ maintext: "Use Equalizer LP to Earn upto 20x Yield through Leverage on Impermax. Rewards are auto-compounded." }
 			]
 		} ,
 	]

@@ -261,7 +261,7 @@ async function paintStatic() {
 		・ <a target="_blank" href="${EXPLORE}/token/${WRAP}">${WRAP_NAME}</a>
 		・ <a target="_blank" href="${EXPLORE}/address/${STKSCT_TELLER}">Teller</a>
 		・ <a target="_blank" href="${EXPLORE}/address/${ZAP_SCT}">Zapper</a>
-		<br>
+		<br><br>
 		<a target="_blank" href="${DOCS_LINK}">Read our Docs</a>
 	`;
 		//・ <a href="${EXPLORE}/address/${DEPOSITOR}">Depositor</a>
@@ -277,7 +277,7 @@ async function paintStatic() {
         <div class="c2a90-row-item">
             ${pool.rewards.map(r => `<div><img src="${r.icon}"> ${r.name}</div>`).join('')}
         </div>
-        <div class="c2a90-row-item">
+        <div class="c2a90-row-item-subtext-desc">
             ${pool.desc[0].maintext}
         </div>
     </div>
