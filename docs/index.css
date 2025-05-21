@@ -40,7 +40,7 @@
 /* Tabbed content */
 .tab {
     overflow: hidden;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 2px solid #fff2;
 	text-align: center;
 }
 
@@ -53,18 +53,18 @@
     transition: 0.3s;
     font-size: 17px;
     color: white;
+    border-bottom: 4px solid #fff2;
 }
 
 .tab button:hover {
     background-color: #4567;
     color: #3ff;
-    font-weight: bolder;
 }
 
 .tab button.active {
     background-color: #5678;
     color: #fff;
-    border-bottom: 2px solid;
+    border-bottom: 4px solid;
     font-family: bold;
 }
 
@@ -84,6 +84,7 @@ body {
     background-attachment: fixed;
     background-position: cover;
     transition: 0.5s ease-in;
+    background: #01011d
 }
 footer{
 	text-align: center;
@@ -161,7 +162,7 @@ footer{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 30px;
+    padding: 10px 5%;
     background: linear-gradient(to bottom, rgba(0, 0, 16, 0.8), rgba(0, 19, 55, 0.8));
 }
 
@@ -180,6 +181,8 @@ footer{
 
 .topnav-left img {
     margin-right: 10px;
+    height: 32px;
+    vertical-align: middle;
 }
 
 .topnav-right p {
@@ -209,7 +212,11 @@ footer{
 
 .headline {
     font-size: 1.25em;
-	margin-bottom:20px;
+    display: grid;
+    grid-template-columns: 80px auto;
+    text-align: center;
+    width: max-content;
+    margin: 32px auto;
 }
 
 .headline-keyword {
@@ -225,6 +232,10 @@ footer{
 #headline-props img {
     width: 24px;
     vertical-align: bottom;
+}
+
+.headline-logo {
+    width: 72px;
 }
 
 .page-heading {
@@ -277,9 +288,9 @@ footer{
 .c2a {
 	/*! max-width:500px; */
 	margin:auto auto;
-    background: rgba(0, 0, 255, 0.25);
+    background: #011032;
     padding: 20px;
-    border: 1px solid #fff7;
+    border: 2px solid #fff4;
     border-radius: 10px;
     margin-bottom: 20px;
     text-align: center;
@@ -291,7 +302,7 @@ footer{
 }
 
 .c2a input, .c2a button, .c2abtn {
-    margin: 10px 0;
+    margin: 10px auto 10px -10px;
     padding: 10px;
     border: none;
     border-radius: 8px;
@@ -306,11 +317,19 @@ footer{
     color: white;
     cursor: pointer;
     transition: box-shadow 0.3s ease-in-out;
-    max-width:300px;
 }
 
 .c2a button:hover, .c2abtn:hover {
     box-shadow: 0 0 10px #0ff;
+}
+.c2a-two-button {
+	display: grid;
+	grid-template-columns: 50% 50%;
+	width: 90%;
+	margin: auto;
+}
+.c2a-two-button .c2abtn {
+    width:  80% !important;
 }
 
 .c2a90 {
@@ -323,11 +342,10 @@ footer{
 	grid-template-columns: 150px 120px 120px 120px 120px 24px 120px 24px 120px 24px 120px 24px 120px 120px 120px 120px 120px;
 	grid-gap-columns:5px;
     max-width: -moz-max-content;
-    margin: 10px auto;
-	padding: 0px 15px;
+	padding: 15px 15px 0 15px;
 	border-radius: 5px;
-	align-content: ;
 	border-bottom: 1px solid #FFF2;
+	margin: auto;
 }
 
 .c2a90-row-port {
@@ -556,7 +574,7 @@ button:disabled, .c2abtn:disabled {
 }
 
 .hint, .hint * {
-	font-family:italic;
+	font-family:regular;
 	text-decoration:none; /*1px dashed underline;*/
 	font-size:0.9em;
 	color: #aaa;
@@ -564,8 +582,9 @@ button:disabled, .c2abtn:disabled {
 }
 
 .hint a, .hint a * {
-    color: aqua;
+    color: deepskyblue;
     cursor: pointer;
+    font-weight: bold;
 }
 
 #spotlight table tbody td:nth-of-type(2n) {
@@ -641,7 +660,7 @@ button:disabled, .c2abtn:disabled {
 		font-size: 1em;
 	}
 
-	.c2a, .c2a button, .c2abtn.submit {
+	.c2a {
 		width: 60%;
 	}
 
