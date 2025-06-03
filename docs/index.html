@@ -372,10 +372,27 @@ BASE = "0x4D85bA8c3918359c78Ed09581E5bc7578ba932ba";
 			DIAMONDS : { name: "DIAMONDS" , icon:"https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/128x128/0xdbde38013d44ae23badc4cd8081271b8028ecaf4.png" } ,
 			SPECTRA : { name: "SPECTRA" , icon:"https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/base/tokens/0x64fcc3a02eeeba05ef701b7eed066c6ebd5d4e51.png" } ,
 			imxEliteRingsScUSD : { name: "imxEliteRingsScUSD" , icon:"https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/0xffa942079e238353423ab468acc10dc9343dccf0.png" } ,
+			PT_imxEliteRingsScUSD : { name: "PT-imxEliteRingsScUSD" , icon:"https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/0xffa942079e238353423ab468acc10dc9343dccf0.png" } ,
+			YT_imxEliteRingsScUSD : { name: "YT-imxEliteRingsScUSD" , icon:"https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/0xffa942079e238353423ab468acc10dc9343dccf0.png" } ,
 		}
 
 
 		PARTNER_POOLS = [
+		{
+			link : "https://app.spectra.finance/fjxed-rate/sonic:0xa17392199e03d39d7ece43539e6710d2ba1d8166",
+			tokens: [
+				TOKENS.PT_imxEliteRingsScUSD,
+			],
+			platforms: [
+				{ name: "Spectra" , icon: TOKENS.SPECTRA.icon , subtext: "Fixed Rate Yield" } ,
+			],
+			rewards : [
+				TOKENS.ERUSD,
+			],
+			desc : [
+				{ maintext: "Earn a Constant guaranteed APR by holding PT (Principal Tokens). You can also Trade the 'implied APR number' of a PT lika a spot price for profits!" }
+			]
+		} ,
 		{
 			link : "https://sonic.impermax.finance/lending-pool/7/0x98cfa5addcb937c205e35d2bef0885f969dcf958",
 			tokens: [
@@ -421,7 +438,8 @@ BASE = "0x4D85bA8c3918359c78Ed09581E5bc7578ba932ba";
 			rewards : [
 				TOKENS.EQUAL ,
 				//TOKENS.DIAMONDS,
-				{ name: "Stream internal APY" , icon:"https://ftm.guru/icons/streamprotocol.svg" } ,
+				{ name: "Staked xUSD <span class='hint'>(Internal APY)</span>" , icon: TOKENS.XUSD.icon } ,
+				{ name: "Stream Droplets <span class='hint'>(Points)</span>" , icon:"https://ftm.guru/icons/streamprotocol.svg" } ,
 			],
 			desc : [
 				{ maintext: "Provide Liquidity to Stableswap Liquidity Pool." }
@@ -438,6 +456,7 @@ BASE = "0x4D85bA8c3918359c78Ed09581E5bc7578ba932ba";
 			],
 			rewards : [
 				TOKENS.EQUAL ,
+				{ name: "Staked frxUSD <span class='hint'>(Internal APY)</span>" , icon: TOKENS.SFRXUSD.icon } ,
 				//TOKENS.DIAMONDS,
 				//{ name: "6x Sonic Points" , icon:"https://ftm.guru/icons/sonic.png" } ,
 			],
@@ -480,30 +499,15 @@ BASE = "0x4D85bA8c3918359c78Ed09581E5bc7578ba932ba";
 			]
 		} ,
 		{
-			link : "https://app.spectra.finance/fjxed-rate/sonic:0xa17392199e03d39d7ece43539e6710d2ba1d8166",
-			tokens: [
-				TOKENS.ERUSD,
-			],
-			platforms: [
-				{ name: "Spectra" , icon: TOKENS.SPECTRA.icon , subtext: "Fixed Rate Yield" } ,
-			],
-			rewards : [
-				TOKENS.ERUSD,
-			],
-			desc : [
-				{ maintext: "Earn a Constant guaranteed APR by holding PT (Principal Tokens). You can also Trade the 'implied APR number' of a PT lika a spot price for profits!" }
-			]
-		} ,
-		{
 			link : "https://app.spectra.finance/trade-yield/sonic:0xa17392199e03d39d7ece43539e6710d2ba1d8166",
 			tokens: [
-				TOKENS.ERUSD,
+				TOKENS.YT_imxEliteRingsScUSD,
 			],
 			platforms: [
 				{ name: "Spectra" , icon: TOKENS.SPECTRA.icon , subtext: "Basis Trading & Yield Leverage" } ,
 			],
 			rewards : [
-				TOKENS.imxEliteRingsScUSD,
+				TOKENS.ERUSD,
 			],
 			desc : [
 				{ maintext: "Buy & hold YT (Yield Tokens) to claim Base Yields from Interest bearing strategy. You can also Trade the 'implied APR number' with 'base yield number' for profits!" }
@@ -512,17 +516,20 @@ BASE = "0x4D85bA8c3918359c78Ed09581E5bc7578ba932ba";
 		{
 			link : "https://app.spectra.finance/pools/sonic:0xa17392199e03d39d7ece43539e6710d2ba1d8166",
 			tokens: [
-				TOKENS.ERUSD,
+				TOKENS.PT_imxEliteRingsScUSD,
+				TOKENS.imxEliteRingsScUSD,
 			],
 			platforms: [
+				{ name: "Spectra" , icon: TOKENS.SPECTRA.icon , subtext: "Yield Market Maker" } ,
 				{ name: "Spectra" , icon: TOKENS.SPECTRA.icon , subtext: "Yield Market Maker" } ,
 			],
 			rewards : [
 				TOKENS.imxEliteRingsScUSD,
+				TOKENS.PT_imxEliteRingsScUSD,
 				TOKENS.SPECTRA,
 			],
 			desc : [
-				{ maintext: "Provide Liquidity for PT & YT traders and earn trade fee, yield from PT and yield from IBT." }
+				{ maintext: "Provide Liquidity to PT/IBT pool (SNG AMM) on Curve.fi via Spectra V2 and earn Trade fee (auto-compounded), yield from PT (auto-compounded), yield from IBT (auto-compounded) as well as SPECTRA incentives." }
 			]
 		} ,
 	]

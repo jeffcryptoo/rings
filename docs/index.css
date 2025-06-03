@@ -12,6 +12,9 @@
 	color: white;
 	transition: 0.25s ease-in;
 }
+.hidden {
+	display:none !important;
+}
 .equal-gradient {
 	background: -webkit-linear-gradient(top, #07f, #123) !important;
 	border:none;
@@ -541,7 +544,7 @@ button.submit, .c2abtn.submit {
 	border-radius: 30px;
 	font-weight: bold;
 	color: white;
-	width: 100%;
+	width: 90%;
 	margin: 5px auto ;
 	padding: 6px;
 	font-size: 0.75em;
@@ -607,10 +610,10 @@ button:disabled, .c2abtn:disabled {
     overflow:auto;
 }
 .mint-table-row {
-    border: 1px solid #fff7;
+    border: 1px solid #fff1;
     border-radius: 10px;
     padding: 10px;
-    background: #0f73;
+    background: #0004;
     text-align: left;
 }
 .mint-table-row:hover {
@@ -628,6 +631,10 @@ button:disabled, .c2abtn:disabled {
 .mint-table-row div:last-child {
     position: relative;
     top:-0px
+}
+
+.mint-table-row .submit {
+    width: calc(100% - 20px)
 }
 
 
