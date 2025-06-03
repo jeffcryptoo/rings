@@ -517,9 +517,8 @@ async function zap(ismax) {
 	al = await Promise.all([
 		_SCT.allowance(window.ethereum.selectedAddress, ZAP_SCT),
 		_SCT.balanceOf(window.ethereum.selectedAddress)
-	])
-	.map( el => BigInt(el) )
-	;
+	]);
+	al = al.map( el => BigInt(el) );
 
 	_oamt = null;
 
@@ -809,9 +808,8 @@ async function redeem(ismax) {
 	al = await Promise.all([
 		_WRAP.allowance(window.ethereum.selectedAddress, DEPOSITOR),
 		_WRAP.balanceOf(window.ethereum.selectedAddress)
-	])
-	.map( el => BigInt(el) )
-	;
+	]);
+	al = al.map( el => BigInt(el) );
 
 	_oamt = null;
 
@@ -888,9 +886,8 @@ async function stake(ismax) {
 	al = await Promise.all([
 		_WRAP.allowance(window.ethereum.selectedAddress, FARM),
 		_WRAP.balanceOf(window.ethereum.selectedAddress)
-	])
-	.map( el => BigInt(el) )
-	;
+	]);
+	al = al.map( el => BigInt(el) );
 
 	_oamt = null;
 
@@ -961,9 +958,8 @@ async function unstake(ismax) {
 
 	al = await Promise.all([
 		_FARM.balanceOf(window.ethereum.selectedAddress)
-	])
-	.map( el => BigInt(el) )
-	;
+	]);
+	al = al.map( el => BigInt(el) );
 
 	_oamt = null;
 
@@ -1013,9 +1009,8 @@ async function claim() {
 	_earned = await Promise.all([
 		_FARM.earned(TEARNED[0], window.ethereum.selectedAddress),
 		_FARM.earned(TEARNED[1], window.ethereum.selectedAddress),
-	])
-	.map( el => BigInt(el) )
-	;
+	]);
+	al = al.map( el => BigInt(el) );
 
 	if(Number(_earned[0]) == 0 && Number(_earned[1]) == 0 ) {notice(`<h3>You dont have any pending rewards!</h3> Stake some ${WRAP_NAME} to earn more!`); return;}
 
