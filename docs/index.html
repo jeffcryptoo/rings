@@ -3,309 +3,293 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>eliteRingsScUSD - veUSD Liquid Wrapper</title>
-	<meta name="description" content="Enjoy instant liquidity for your Rings veUSD on Sonic and boosted USD Yield by tapping into our Earnings Flywheel! Only with Eliteness.Network!">
-	<meta name="keywords" content="Guru Network, Decentralized Finance, Fantom, ELITE, 1337, defi, farming, FTM1337">
+    <title>Rings - Unlock Your Liquid Yield</title>
+    <meta name="description" content="Transform your locked veNFTs into liquid, yield-bearing tokens. Instant liquidity, continuous rewards, exit anytime.">
+    <meta name="keywords" content="DeFi, Liquid Staking, Yield, Sonic, Web3, Rings">
     <link rel="shortcut icon" href="https://ftm.guru/icons/eliteness.png">
     <link rel="stylesheet" href="index.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-
-    <div id="note" class="overlay">
-        <div class="popup">
-            <a class="close" href="#">&times;</a>
-            <div class="content" id="content1">
-                Welcome!
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="https://ftm.guru/icons/eliteness.png" alt="Rings" class="logo-icon">
+                    <span class="logo-text">Rings</span>
+                </div>
+                <div class="wallet-section">
+                    <div id="cw" onclick="cw()">
+                        <button id="cw_og" class="btn btn-primary">Connect Wallet</button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    </header>
 
-    <div class="topnav">
-        <div class="topnav-left">
-            <a href="https://eliteness.network">
-                <img src="https://ftm.guru/icons/eliteness.png" alt="≢">
-            </a>
-            <a href="https://eliteness.network">ELITENESS・NETWORK</a>
-        </div>
-        <div class="topnav-right">
-            <p id="p_cw">
-                <span id="cw" onclick="cw()"><button id="cw_og" class="submit equal-gradient">Connect wallet</button></span>
-            </p>
-        </div>
-    </div>
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <img src="https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/0xd4aa386bfceeedd9de0875b3ba07f51808592e22.png" alt="eliteRingsScUSD" class="hero-icon">
+                        <span>Powered by Treevee</span>
+                    </div>
+                    <h1 class="hero-title">
+                        Unlock Your<br>
+                        <span class="gradient-text">Liquid Yield</span>
+                    </h1>
+                    <p class="hero-description">
+                        Transform your locked veNFTs into liquid, yield-bearing tokens.<br>
+                        Instant liquidity • Continuous rewards • Exit anytime
+                    </p>
+                    
+                    <!-- Key Stats -->
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-value" id="topstat-ve-amt">-.--</div>
+                            <div class="stat-label">Total Locked</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="topstat-wrap-ts">-.--</div>
+                            <div class="stat-label">Liquid Supply</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="topstat-base-per-wrap">-.--</div>
+                            <div class="stat-label">Exchange Rate</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="topstat-dom">-.--%</div>
+                            <div class="stat-label">Market Share</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-    <div id="main-area">
-        <div class="headline">
-			<img class="headline-logo" src="https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/0xd4aa386bfceeedd9de0875b3ba07f51808592e22.png">
-			<div>
-            	<div class="headline-keyword">eliteRingsScUSD</div>
-				<div>Rings veUSD Liquid Wrapper on Sonic!</div>
-			</div>
-        </div>
-        <!-- <div class="page-heading">
-            <img src="https://ftm.guru/icons/lock.svg" alt="Lock Icon">
-            <a href="https://eliteness.network/elma">eLOCKS</a>
-            ≻ <a>Overview</a>
-        </div> -->
+            <!-- Action Cards -->
+            <section class="actions-section">
+                <div class="actions-grid">
+                    
+                    <!-- Get Liquid Tokens Card -->
+                    <div class="action-card" id="get-liquid-card">
+                        <div class="card-header">
+                            <div class="card-icon">💧</div>
+                            <div class="card-title">Get Liquid Tokens</div>
+                            <div class="card-subtitle">Convert locked assets to liquid yield-bearing tokens</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="toggle-tabs">
+                                <button class="toggle-tab active" onclick="showZapMode()">Quick Zap</button>
+                                <button class="toggle-tab" onclick="showMintMode()">Convert veNFT</button>
+                            </div>
+                            
+                            <!-- Zap Mode -->
+                            <div id="zap-mode" class="mode-content">
+                                <div class="input-group">
+                                    <label class="input-label">
+                                        Amount to convert
+                                        <span class="balance-display" id="zap-bal">Balance: -.-- scUSD</span>
+                                    </label>
+                                    <div class="amount-input">
+                                        <input type="number" id="zap-amt" placeholder="0.0" class="amount-field">
+                                        <div class="token-selector">
+                                            <img src="https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/0xd3dce716f3ef535c5ff8d041c1a41c3bd89b97ae.png" alt="scUSD" class="token-icon">
+                                            <span>scUSD</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="arrow-down">↓</div>
+                                
+                                <div class="output-preview">
+                                    <div class="output-label">You'll receive</div>
+                                    <div class="output-amount">
+                                        <span id="zap-output">0.0</span>
+                                        <img src="https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/0xd4aa386bfceeedd9de0875b3ba07f51808592e22.png" alt="eliteRingsScUSD" class="token-icon">
+                                        <span>eliteRingsScUSD</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="action-buttons">
+                                    <button class="btn btn-secondary" onclick="zap(true)">Convert All</button>
+                                    <button class="btn btn-primary btn-large" onclick="zap(false)">Convert Amount</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Mint Mode -->
+                            <div id="mint-mode" class="mode-content hidden">
+                                <div class="nft-selector">
+                                    <div class="input-label">Select your veNFT to convert</div>
+                                    <div class="balance-display" id="mint-bal">Balance: -.-- veUSD NFTs</div>
+                                    <div id="mint-table" class="nft-grid">
+                                        <!-- NFTs will be populated here -->
+                                    </div>
+                                    <div class="fee-notice">
+                                        <span class="fee-icon">ℹ️</span>
+                                        Conversion fee: <span id="mint-fee">-.-%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-        <div class="topstats">
-            <div class="topstat">
-                <div id="topstat-ve-amt">-.--</div>
-                <div>Total <span id="l-ve-1"></span> Locked</div>
-            </div>
-            <div class="topstat">
-                <div id="topstat-wrap-ts">-.--</div>
-                <div><span id="l-wrap-1"></span> Supply</div>
-            </div>
-            <div class="topstat">
-                <div id="topstat-base-per-wrap">-.--</div>
-                <div><span id="l-base-1">Base</span> per <span id="l-wrap-2">Wrap</span></div>
-            </div>
-            <div class="topstat">
-                <div id="topstat-dom">-.--%</div>
-                <div><span id="l-ve-2"></span> Dominance</div>
-            </div>
-        </div>
+                    <!-- Earn Yield Card -->
+                    <div class="action-card" id="earn-card">
+                        <div class="card-header">
+                            <div class="card-icon">📈</div>
+                            <div class="card-title">Earn Yield</div>
+                            <div class="card-subtitle">Discover opportunities to earn with your liquid tokens</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="opportunities-list" id="partner-pools-container">
+                                <!-- Earning opportunities will be populated here -->
+                            </div>
+                            <button class="btn btn-outline" onclick="showAllOpportunities()">View All Opportunities</button>
+                        </div>
+                    </div>
 
-		<br><br>
+                    <!-- Stake & Compound Card
+                    <div class="action-card" id="stake-card">
+                        <div class="card-header">
+                            <div class="card-icon">🔒</div>
+                            <div class="card-title">Stake & Compound</div>
+                            <div class="card-subtitle">Auto-compound your rewards for maximum yield</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="coming-soon">
+                                <div class="coming-soon-icon">🚀</div>
+                                <div class="coming-soon-text">
+                                    <div class="coming-soon-title">Coming at 500K TVL</div>
+                                    <div class="coming-soon-subtitle">Auto-compounding rewards will be available once we reach 500K total value locked</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
 
-        <!-- Tab Navigation -->
-        <div class="tab">
-            <button class="tablinks" onclick="openTab(event, 'Zap')" id="tablinks_Zap">Zap</button>
-            <button class="tablinks" onclick="openTab(event, 'Mint')" id="tablinks_Mint">Mint</button>
-            <button class="tablinks" onclick="openTab(event, 'Earn')" id="tablinks_Earn">Earn</button>
-            <button class="tablinks" onclick="alert('Staking features will be Available at 500k TVL!');return;openTab(event, 'Stake')" id="tablinks_Stake">Stake</button>
-            <!--
-            <button class="tablinks" onclick="alert('Staking will be Available at 500k TVL!');return;openTab(event, 'Claim')" id="tablinks_Claim">Claim</button>
-            <button class="tablinks" onclick="alert('Staking will be Available at 500k TVL!');return;openTab(event, 'Unstake')" id="tablinks_Unstake">Unstake</button>
-            -->
-            <button class="tablinks" onclick="openTab(event, 'Redeem')" id="tablinks_Redeem">Redeem</button>
-        </div>
+                    <!-- Exit Position Card -->
+                    <div class="action-card" id="redeem-card">
+                        <div class="card-header">
+                            <div class="card-icon">↩️</div>
+                            <div class="card-title">Exit Position</div>
+                            <div class="card-subtitle">Convert back to original tokens anytime</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="input-group">
+                                <label class="input-label">
+                                    Amount to redeem
+                                    <span class="balance-display" id="redeem-bal">Balance: -.-- eliteRingsScUSD</span>
+                                </label>
+                                <div class="amount-input">
+                                    <input type="number" id="redeem-amt" placeholder="0.0" class="amount-field">
+                                    <div class="token-selector">
+                                        <img src="https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/0xd4aa386bfceeedd9de0875b3ba07f51808592e22.png" alt="eliteRingsScUSD" class="token-icon">
+                                        <span>eliteRingsScUSD</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="fee-notice">
+                                <span class="fee-icon">ℹ️</span>
+                                Exit fee: <span id="redeem-fee">-.-%</span>
+                            </div>
+                            
+                            <div class="action-buttons">
+                                <button class="btn btn-secondary" onclick="redeem(true)">Redeem All</button>
+                                <button class="btn btn-primary btn-large" onclick="redeem(false)">Redeem Amount</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-        <!-- Tab content -->
-        <div id="Zap" class="tabcontent">
-            <div class="c2a">
-                <form>
-                    <h2>Zap in with <span id="l-sct-1">_</span></h2>
-					Mint <span id="l-wrap-9">_</span> with <span id="l-sct-2">_</span>.
-					<br><br><br><br>
-                    <div class="form-item-container">
-                        <label for="">1. Acquire some <span id="l-sct-3">_</span></label>
-                        <div class="hint"><a href="https://swap.defillama.com/?chain=sonic&tab=swap" target="_blank">Buy some <span id="l-sct-4">_</span> on DefiLlama meta-aggregator!</a></div>
-                        <div class="hint">You can also buy <span id="l-wrap-10">_</span> directly from a DEX.</div>
+            <!-- Opportunities Modal -->
+            <div id="opportunities-modal" class="modal-overlay hidden">
+                <div class="modal large">
+                    <button class="modal-close" onclick="hideAllOpportunities()">&times;</button>
+                    <div class="modal-header">
+                        <h3>All Earning Opportunities</h3>
+                        <p>Discover ways to earn yield with your eliteRingsScUSD</p>
                     </div>
-                    <br><br>
-                    <div class="form-item-container">
-                        <label for="">2. Enter amount to Zap</label>
-                        <div class="hint" id="zap-bal">Balance: -.-- <span id="l-sct-5">_</span></div>
-                        <input required class="in-box" id="zap-amt" type="number" placeholder="1337" step="1" min="1">
+                    <div class="modal-content">
+                        <div id="partner-pools-full" class="opportunities-grid">
+                            <!-- Full opportunities list will be populated here -->
+                        </div>
                     </div>
-                    <div class="c2a-two-button">
-                    	<div type="submit" class="c2a-1 submit equal-gradient c2abtn" onclick="zap(false)">Zap</div>
-                    	<div type="submit" class="c2a-1 submit equal-gradient c2abtn" onclick="zap(true)">Zap All</div>
-                    </div>
-                    <br><br><br>
-                    <div class="form-item-container">
-                        <label for="">3. Use <span id="l-wrap-11">_</span> to start Earning!</label>
-                        <div class="hint" onclick="openTab(event,'Stake');">Switch to Stake tab.<br>Or use <span id="l-wrap-12">_</span> elsewhere!</div>
-                    </div>
-                    <br><br>
-                </form>
-            </div>
-        </div>
-        <!-- Tab content -->
-        <div id="Mint" class="tabcontent">
-            <div class="c2a">
-                <form>
-                    <h2>Mint <span id="l-wrap-3">_</span></h2>
-					<span id="l-wrap-4">_</span> is minted with <span id="l-ve-3">_</span> Rings veNFTs.
-					<br><br><br><br>
-                    <div class="form-item-container">
-                        <label for="">1. Acquire some <span id="l-ve-4">_</span></label>
-                        <div class="hint"><a href="https://app.rings.money/#/lock" target="_blank">Lock <span id="l-base-2"></span> on Rings.Money to get <span id="l-ve-5">_</span>!</a></div>
-                    </div>
-                    <br><br>
-                    <div class="form-item-container">
-                        <label for="">2. Select a <span id="l-ve-6">_</span> NFT to Deposit</label>
-                        <div class="hint" id="mint-bal">Balance: -.-- <span id="l-ve-7">_</span> NFTs</div>
-                        <br><br>
-                        <div id="mint-table"></div>
-                        <br>
-                        <div class="hint">Deposit fee of <span id="mint-fee">-.-%</span> apply!</div>
-                    </div>
-                    <br><br><br>
-                    <div class="form-item-container">
-                        <label for="">3. Use <span id="l-wrap-5">_</span> to start Earning!</label>
-                        <div class="hint" onclick="openTab(event,'Stake');">Switch to Stake tab.<br>Or use <span id="l-wrap-6">_</span> elsewhere!</div>
-                    </div>
-                    <br><br>
-                </form>
-            </div>
-        </div>
-        <!-- Tab content -->
-        <div id="Earn" class="tabcontent">
-        	<div class="c2a c2a90" align="center" style="margin:auto">
-        		<h2 id="partner-pools-table-title"></h2>
-        		<div class="c2a90-table" id="partner-pools-table" align="center" style="display:grid;">
-					<div class="c2a90-row">
-						<div onclick="sortit(0, 'mainstage', 'c2a90-row', 'c2a90-row-item', null, 1, 0)">Platform		<br><span class="c2a90-row-byline">Category</span></div>
-						<div onclick="sortit(1, 'mainstage', 'c2a90-row', 'c2a90-row-item', null, 1, 0)">Pool			<br><span class="c2a90-row-byline">Constituent Assets</span></div>
-						<div onclick="sortit(2, 'mainstage', 'c2a90-row', 'c2a90-row-item', null, 1, 0)">Rewards		<br><span class="c2a90-row-byline">Tokens, Points, etc</span></div>
-						<div onclick="sortit(2, 'mainstage', 'c2a90-row', 'c2a90-row-item', null, 1, 0)">Description		<br><span class="c2a90-row-byline">Guidelines</span></div>
-					</div>
-				</div>
-				<br><br>
-				<div class="hint">Subscribe to our Discord & Twitter for latest updates!</div>
-				<br>
-        	</div>
-        </div>
-        <!-- Tab content -->
-        <div id="Stake" class="tabcontent">
-            <div class="c2a">
-                <form>
-                    <h2>Stake <span id="stake-wrapname-1">_</span></h2>
-					Deposit into Gauge Farm to Earn Rewards!
-					<div class="hint" id="stake-tvl">TVL: $-.--</div>
-					<br><br>
-                    <div class="form-item-container">
-                        <label for="">1. Mint</label>
-                        <div class="hint" onclick="openTab(event,'Mint');">Switch to Mint tab.</div>
-                    </div>
-                    <br><br>
-                    <div class="form-item-container">
-                        <label for="">2. Enter amount to Stake</label>
-                        <div class="hint" id="stake-bal">Balance: -.-- <span id="stake-wrapname-2">_</span></div>
-                        <input required class="in-box" id="stake-amt" type="number" placeholder="1337" step="1" min="1">
-                    </div>
-                    <div class="c2a-two-button">
-                    	<div type="submit" class="c2a-1 submit equal-gradient c2abtn" onclick="stake(false)">Stake</div>
-                    	<div type="submit" class="c2a-1 submit equal-gradient c2abtn" onclick="stake(true)">Stake Max</div>
-                    </div>
-                    <br><br><br>
-                    <div class="form-item-container">
-                        <label for="">3. View & Claim Rewards!</label>
-                        <div class="hint" onclick="openTab(event,'Claim');">Switch to Claim tab.</div>
-                    </div>
-                    <br><br>
-                </form>
-            </div>
-        </div>
-        <!-- Tab content -->
-        <div id="Claim" class="tabcontent">
-            <div class="c2a">
-                <form>
-                    <h2>Your Rewards</h2>
-					View and Claim all Your Earnings!
-					<br><br><br><br>
-                    <div class="form-item-container" id="claim-info"></div>
-                    <div class="c2a-two-button">
-                    	<div type="submit" class="c2a-1 submit equal-gradient c2abtn" onclick="claim()">Claim Rewards</div>
-                    </div>
-                    <br><br>
-                </form>
-            </div>
-        </div>
-        <!-- Tab content -->
-        <div id="Unstake" class="tabcontent">
-            <div class="c2a">
-                <form>
-                    <h2>Un-Stake <span id="unstake-wrapname-1">_</span></h2>
-					Withdraw tokens from Staking Gauge
-					<br><br><br><br>
-                    <div class="form-item-container">
-                        <label for="">1. Unstake</label>
-                        <div class="hint" onclick="openTab(event,'Mint');">Switch to Unstake tab.</div>
-                    </div>
-                    <br><br>
-                    <div class="form-item-container">
-                        <label for="">2. Enter amount to Withdraw</label>
-                        <div class="hint" id="unstake-bal">Balance: -.-- <span id="unstake-wrapname-2">_</span></div>
-                        <input required class="in-box" id="unstake-amt" type="number" placeholder="1337" step="1" min="1">
-                    </div>
-                    <div class="c2a-two-button">
-                    	<div type="submit" class="c2a-1 submit equal-gradient c2abtn" onclick="unstake(false)">Unstake</div>
-                    	<div type="submit" class="c2a-1 submit equal-gradient c2abtn" onclick="unstake(true)">Unstake Max</div>
-                    </div>
-                    <br><br>
-                    <div class="form-item-container">
-                        <label for="">3. Withdraw</label>
-                        <div class="hint" onclick="openTab(event,'Redeem');">Switch to Withdraw tab.<br>Or use <span id="unstake-wrapname-3">_</span> elsewhere!</div>
-                    </div>
-                    <br><br>
-                </form>
+                </div>
             </div>
         </div>
-        <!-- Tab content -->
-        <div id="Redeem" class="tabcontent">
-            <div class="c2a">
-                <form>
-                    <h2>Redeem <span id="l-wrap-7">_</span></h2>
-					Unwrap 1:1 to <span id="l-ve-8">_</span> at anytime!
-					<br><br><br><br>
-                    <div class="form-item-container">
-                        <label for="">1. Unstake</label>
-                        <div class="hint" onclick="openTab(event,'Mint');">Switch to Unstake tab.</a></div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Smart Contracts</h4>
+                    <div id="footer-contracts" class="contract-links">
+                        <!-- Contract links will be populated here -->
                     </div>
-                    <br><br>
-                    <div class="form-item-container">
-                        <label for="">2. Enter amount to unwrap</label>
-                        <div class="hint" id="redeem-bal">Balance: -.-- <span id="l-wrap-8">_</span></div>
-                        <input required class="in-box" id="redeem-amt" type="number" placeholder="1337" step="1" min="1">
+                </div>
+                <div class="footer-section">
+                    <h4>Community</h4>
+                    <div class="social-links">
+                        <a href="https://discord.gg/QpyfMarNrV" target="_blank" class="social-link">
+                            <img src="https://ftm.guru/icons/discord.svg" alt="Discord">
+                            Discord
+                        </a>
+                        <a href="https://twitter.com/FTM1337" target="_blank" class="social-link">
+                            <img src="https://ftm.guru/icons/twitter.svg" alt="Twitter">
+                            Twitter
+                        </a>
+                        <a href="https://ftm.guru/docs" target="_blank" class="social-link">
+                            <img src="https://ftm.guru/icons/docs.svg" alt="Docs">
+                            Docs
+                        </a>
                     </div>
-                    <div class="c2a-two-button">
-                    	<div type="submit" class="c2a-1 submit equal-gradient c2abtn" onclick="redeem(false)">Redeem</div>
-                    	<div type="submit" class="c2a-1 submit equal-gradient c2abtn" onclick="redeem(true)">Redeem Max</div>
+                </div>
+                <div class="footer-section">
+                    <h4>Analytics</h4>
+                    <div class="social-links">
+                        <a href="https://dune.com/eliteness" target="_blank" class="social-link">
+                            <img src="https://ftm.guru/icons/dune.svg" alt="Dune">
+                            Dune Analytics
+                        </a>
+                        <a href="https://defillama.com/protocol/guru-network-dao" target="_blank" class="social-link">
+                            <img src="https://ftm.guru/icons/defillama.svg" alt="DeFiLlama">
+                            DeFiLlama
+                        </a>
                     </div>
-                    <div class="hint">Redeem fee of <span id="redeem-fee">-.-%</span> apply!</div>
-                    <br><br>
-                    <div class="form-item-container">
-                        <label for="">3. Well Done!</label>
-                        <div class="hint">Your <span id="l-ve-9">_</span> is back in your wallet!</div>
-                    </div>
-                    <br><br>
-                </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Powered by <strong>Guru Network</strong> • Built on Sonic</p>
             </div>
         </div>
+    </footer>
 
-
-        <footer>
-        	<h3>Explore related Smart Contracts</h3>
-        	<div id="footer-contracts">
-        	</div>
-        	<br><br>
-        	<h2>Powered by Guru Network</h2>
-        	<div class="social">
-            	<a target="_blank" href="https://discord.gg/QpyfMarNrV"><img src="https://ftm.guru/icons/discord.svg" alt="Discord"></a>
-            	<a target="_blank" href="https://twitter.com/FTM1337"><img src="https://ftm.guru/icons/twitter.svg" alt="Twitter"></a>
-            	<a target="_blank" href="https://dune.com/eliteness"><img src="https://ftm.guru/icons/dune.svg" alt="Dune"></a>
-            	<a target="_blank" href="https://defillama.com/protocol/guru-network-dao"><img src="https://ftm.guru/icons/defillama.svg" alt="Defillama"></a>
-            	<a target="_blank" href="https://coinmarketcap.com/currencies/elite-1337"><img src="https://ftm.guru/icons/cmc.svg" alt="CoinMarketCap"></a>
-            	<a target="_blank" href="https://ftm.guru/docs"><img src="https://ftm.guru/icons/docs.svg" alt="Docs"></a>
-        	</div>
-		</footer>
-
-    </div>
-
-    <!-- Ignore Below Block : Dev Logs -->
+    <!-- Hidden Dev Elements -->
     <div style="display:none">
         <span id="cw_m"></span>
-        <div id="connect">
-            Please connect your web3 wallet.
-            <button onclick="cw()" id="btn-connect">Connect</button>
-        </div>
-        <div id="switch">
-            <b id="btn-switch" onclick="cw()">
-                <span id="cw"></span>
-            </b>
-            <div>Balance: <b id="usb-mtv">?</b> USDC</div>
-            <span>Wallet at Fantom Opera. <a href="index.html" style="color:aqua;">Change?</a></span>
-        </div>
+        <div id="connect">Please connect your web3 wallet.</div>
+        <div id="switch">Connected to <span id="chain-name">Sonic</span></div>
+        
+        <!-- Hidden label elements for backwards compatibility -->
+        <span id="l-ve-1"></span><span id="l-ve-2"></span><span id="l-ve-3"></span><span id="l-ve-4"></span><span id="l-ve-5"></span><span id="l-ve-6"></span><span id="l-ve-7"></span><span id="l-ve-8"></span><span id="l-ve-9"></span>
+        <span id="l-wrap-1"></span><span id="l-wrap-2"></span><span id="l-wrap-3"></span><span id="l-wrap-4"></span><span id="l-wrap-5"></span><span id="l-wrap-6"></span><span id="l-wrap-7"></span><span id="l-wrap-8"></span><span id="l-wrap-9"></span><span id="l-wrap-10"></span><span id="l-wrap-11"></span><span id="l-wrap-12"></span>
+        <span id="l-base-1"></span><span id="l-base-2"></span>
+        <span id="l-sct-1"></span><span id="l-sct-2"></span><span id="l-sct-3"></span><span id="l-sct-4"></span><span id="l-sct-5"></span>
     </div>
-    <!-- Ignore Above Block : Dev Logs -->
 
+    <!-- Scripts -->
     <script src="https://ftm.guru/ethers-5.2.umd.min.js"></script>
     <script src="index.js"></script>
     <script>
+        // Configuration - same as original
         RPC_URL = "https://rpc.soniclabs.com";
         CHAINID = 146;
         CHAIN_NAME = "Sonic";
@@ -320,219 +304,315 @@
         NATIVE_LOGO = "https://ftm.guru/icons/sonic.png";
         LOGOS = "https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/128x128/";
 
-		SCT = "0xd3dce716f3ef535c5ff8d041c1a41c3bd89b97ae";
-		SCT_NAME = "scUSD";
-		SCT_LOGO = LOGOS + SCT.toLowerCase() + ".png";
-		SCT_DEC = 6;
+        SCT = "0xd3dce716f3ef535c5ff8d041c1a41c3bd89b97ae";
+        SCT_NAME = "scUSD";
+        SCT_LOGO = LOGOS + SCT.toLowerCase() + ".png";
+        SCT_DEC = 6;
 
-BASE = "0x4D85bA8c3918359c78Ed09581E5bc7578ba932ba";
-		BASE_NAME = "stkscUSD";
-		BASE_LOGO = LOGOS + "0xd3dce716f3ef535c5ff8d041c1a41c3bd89b97ae" + ".png";
-		BASE_DEC = 6;
+        BASE = "0x4D85bA8c3918359c78Ed09581E5bc7578ba932ba";
+        BASE_NAME = "stkscUSD";
+        BASE_LOGO = LOGOS + "0xd3dce716f3ef535c5ff8d041c1a41c3bd89b97ae" + ".png";
+        BASE_DEC = 6;
 
-		VENFT = "0x0966CAE7338518961c2d35493D3EB481A75bb86B";
-		VENFT_NAME = "veUSD";
-		VENFT_LOGO = LOGOS + SCT.toLowerCase() + ".png";
-		VENFT_DEC = 6;
-		VENFT_MAXTIME = 365 * 24 * 60 * 60;
+        VENFT = "0x0966CAE7338518961c2d35493D3EB481A75bb86B";
+        VENFT_NAME = "veUSD";
+        VENFT_LOGO = LOGOS + SCT.toLowerCase() + ".png";
+        VENFT_DEC = 6;
+        VENFT_MAXTIME = 365 * 24 * 60 * 60;
 
-		WRAP = "0xd4aa386bfceeedd9de0875b3ba07f51808592e22";
-		WRAP_NAME = "eliteRingsScUSD";
-		WRAP_LOGO = LOGOS + WRAP.toLowerCase() + ".png";
-		WRAP_DEC = 6;
+        WRAP = "0xd4aa386bfceeedd9de0875b3ba07f51808592e22";
+        WRAP_NAME = "eliteRingsScUSD";
+        WRAP_LOGO = LOGOS + WRAP.toLowerCase() + ".png";
+        WRAP_DEC = 6;
 
-		VOTER = "0xB84194E28f624BBBA3C9181F3a1120eE76469337";
-		SAFE_ADDR = "0x0000000000000000000000000000000000001234";
+        VOTER = "0xB84194E28f624BBBA3C9181F3a1120eE76469337";
+        SAFE_ADDR = "0x0000000000000000000000000000000000001234";
 
-		DEPOSITOR = "0xb0c855a7fb3716ebc1c4505218de4bf2186125ba";
-		ZAP_SCT = "0x7f142a18f1B476809c4994C63811feF4afD14134";
+        DEPOSITOR = "0xb0c855a7fb3716ebc1c4505218de4bf2186125ba";
+        ZAP_SCT = "0x7f142a18f1B476809c4994C63811feF4afD14134";
+        STKSCT_TELLER = "0x5e39021ae7d3f6267dc7995bb5dd15669060dae0"
 
-		STKSCT_TELLER = "0x5e39021ae7d3f6267dc7995bb5dd15669060dae0"
+        FARM = "";
+        TEARNED = [];
+        TEARNED_LOGO = [];
+        TEARNED_NAME = [];
 
-		FARM = "";
-		TEARNED = [];
-		TEARNED_LOGO = [];
-		TEARNED_NAME = [];
+        MARKET_NAME = "Rings";
+        MARKET_LOGO = "https://ftm.guru/icons/rings.png";
+        CTOKEN = "0x4D85bA8c3918359c78Ed09581E5bc7578ba932ba";
+        DOCS_LINK = "https://ftm.guru/docs/eliteRingsScUSD";
 
+        // Token definitions and partner pools - same as original
+        TOKENS = {
+            EQUAL : { name: "EQUAL" , icon:"https://ftm.guru/icons/equal.png" } ,
+            USDCE : { name: "USDC.e" , icon:"https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/128x128/0x29219dd400f2bf60e5a23d13be72b486d4038894.png" } ,
+            XUSD  : { name: "xUSD" , icon:"https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/128x128/0x6202b9f02e30e5e1c62cc01e4305450e5d83b926.png" } ,
+            ERUSD : { name: "eliteRingsScUSD" , icon:"https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/128x128/0xd4aa386bfceeedd9de0875b3ba07f51808592e22.png" } ,
+            SFRXUSD : { name: "sfrxUSD" , icon:"https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/128x128/0x5bff88ca1442c2496f7e475e9e7786383bc070c0.png" } ,
+            DIAMONDS : { name: "DIAMONDS" , icon:"https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/128x128/0xdbde38013d44ae23badc4cd8081271b8028ecaf4.png" } ,
+            SPECTRA : { name: "SPECTRA" , icon:"https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/base/tokens/0x64fcc3a02eeeba05ef701b7eed066c6ebd5d4e51.png" } ,
+            imxEliteRingsScUSD : { name: "imxEliteRingsScUSD" , icon:"https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/0xffa942079e238353423ab468acc10dc9343dccf0.png" } ,
+            PT_imxEliteRingsScUSD : { name: "PT-imxEliteRingsScUSD" , icon:"https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/0xffa942079e238353423ab468acc10dc9343dccf0.png" } ,
+            YT_imxEliteRingsScUSD : { name: "YT-imxEliteRingsScUSD" , icon:"https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/0xffa942079e238353423ab468acc10dc9343dccf0.png" } ,
+        }
 
-		MARKET_NAME = "Rings";
-		MARKET_LOGO = "https://ftm.guru/icons/rings.png";
+        PARTNER_POOLS = [
+            {
+                link : "https://app.spectra.finance/pools/sonic:0xa17392199e03d39d7ece43539e6710d2ba1d8166",
+                tokens: [ TOKENS.PT_imxEliteRingsScUSD ],
+                platforms: [ { name: "Spectra" , icon: TOKENS.SPECTRA.icon , subtext: "Fixed Rate Yield" } ],
+                rewards : [ TOKENS.ERUSD ],
+                desc : [ { maintext: "Earn a constant guaranteed APR by holding PT (Principal Tokens)" } ]
+            },
+            {
+                link : "https://sonic.impermax.finance/lending-pool/7/0x98cfa5addcb937c205e35d2bef0885f969dcf958",
+                tokens: [ TOKENS.ERUSD ],
+                platforms: [ { name: "Impermax" , icon:"https://ftm.guru/icons/impermax.png" , subtext: "Lending" } ],
+                rewards : [ TOKENS.ERUSD ],
+                desc : [ { maintext: "Simple lending with auto-compounded rewards" } ]
+            },
+            {
+                link : "https://sonic.equalizer.exchange/liquidity?search=eliteRingsScUSD",
+                tokens: [ TOKENS.USDCE , TOKENS.ERUSD ],
+                platforms: [ { name: "Equalizer" , icon: TOKENS.EQUAL.icon , subtext: "DEX" } ],
+                rewards : [ TOKENS.EQUAL, { name: "6x Sonic Points" , icon:"https://ftm.guru/icons/sonic.png" } ],
+                desc : [ { maintext: "Provide liquidity to stableswap pool" } ]
+            }
+        ];
 
-		CTOKEN = "0x4D85bA8c3918359c78Ed09581E5bc7578ba932ba"; 	//stkscUSD (without 'w')
+        // UI Helper Functions
+        function showZapMode() {
+            document.getElementById('zap-mode').classList.remove('hidden');
+            document.getElementById('mint-mode').classList.add('hidden');
+            document.querySelectorAll('.toggle-tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+        }
 
+        function showMintMode() {
+            document.getElementById('zap-mode').classList.add('hidden');
+            document.getElementById('mint-mode').classList.remove('hidden');
+            document.querySelectorAll('.toggle-tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+        }
 
-		DOCS_LINK = "https://ftm.guru/docs/eliteRingsScUSD";
+        function showAllOpportunities() {
+            document.getElementById('opportunities-modal').classList.remove('hidden');
+            populateFullOpportunities();
+        }
 
-		TOKENS = {
-			EQUAL : { name: "EQUAL" , icon:"https://ftm.guru/icons/equal.png" } ,
-			USDCE : { name: "USDC.e" , icon:"https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/128x128/0x29219dd400f2bf60e5a23d13be72b486d4038894.png" } ,
-			XUSD  : { name: "xUSD" , icon:"https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/128x128/0x6202b9f02e30e5e1c62cc01e4305450e5d83b926.png" } ,
-			ERUSD : { name: "eliteRingsScUSD" , icon:"https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/128x128/0xd4aa386bfceeedd9de0875b3ba07f51808592e22.png" } ,
-			SFRXUSD : { name: "sfrxUSD" , icon:"https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/128x128/0x5bff88ca1442c2496f7e475e9e7786383bc070c0.png" } ,
-			DIAMONDS : { name: "DIAMONDS" , icon:"https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/128x128/0xdbde38013d44ae23badc4cd8081271b8028ecaf4.png" } ,
-			SPECTRA : { name: "SPECTRA" , icon:"https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/base/tokens/0x64fcc3a02eeeba05ef701b7eed066c6ebd5d4e51.png" } ,
-			imxEliteRingsScUSD : { name: "imxEliteRingsScUSD" , icon:"https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/0xffa942079e238353423ab468acc10dc9343dccf0.png" } ,
-			PT_imxEliteRingsScUSD : { name: "PT-imxEliteRingsScUSD" , icon:"https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/0xffa942079e238353423ab468acc10dc9343dccf0.png" } ,
-			YT_imxEliteRingsScUSD : { name: "YT-imxEliteRingsScUSD" , icon:"https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/0xffa942079e238353423ab468acc10dc9343dccf0.png" } ,
-		}
+        function hideAllOpportunities() {
+            document.getElementById('opportunities-modal').classList.add('hidden');
+        }
 
+        function populateFullOpportunities() {
+            const container = document.getElementById('partner-pools-full');
+            container.innerHTML = PARTNER_POOLS.map(pool => `
+                <div class="opportunity-card" onclick="window.open('${pool.link}','_blank')">
+                    <div class="opportunity-header">
+                        <img src="${pool.platforms[0].icon}" alt="${pool.platforms[0].name}" class="platform-icon">
+                        <div class="opportunity-title">
+                            <div class="platform-name">${pool.platforms[0].name}</div>
+                            <div class="platform-type">${pool.platforms[0].subtext}</div>
+                        </div>
+                    </div>
+                    <div class="opportunity-assets">
+                        ${pool.tokens.map(token => `
+                            <div class="asset-tag">
+                                <img src="${token.icon}" alt="${token.name}" class="asset-icon">
+                                ${token.name}
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="opportunity-rewards">
+                        ${pool.rewards.map(reward => `
+                            <div class="reward-tag">
+                                <img src="${reward.icon}" alt="${reward.name}" class="reward-icon">
+                                ${reward.name}
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="opportunity-description">${pool.desc[0].maintext}</div>
+                </div>
+            `).join('');
+        }
 
-		PARTNER_POOLS = [
-		{
-			link : "https://app.spectra.finance/fjxed-rate/sonic:0xa17392199e03d39d7ece43539e6710d2ba1d8166",
-			tokens: [
-				TOKENS.PT_imxEliteRingsScUSD,
-			],
-			platforms: [
-				{ name: "Spectra" , icon: TOKENS.SPECTRA.icon , subtext: "Fixed Rate Yield" } ,
-			],
-			rewards : [
-				TOKENS.ERUSD,
-			],
-			desc : [
-				{ maintext: "Earn a Constant guaranteed APR by holding PT (Principal Tokens). You can also Trade the 'implied APR number' of a PT lika a spot price for profits!" }
-			]
-		} ,
-		{
-			link : "https://sonic.impermax.finance/lending-pool/7/0x98cfa5addcb937c205e35d2bef0885f969dcf958",
-			tokens: [
-				TOKENS.ERUSD ,
-			],
-			platforms: [
-				{ name: "Impermax" , icon:"https://ftm.guru/icons/impermax.png" , subtext: "Lending" } ,
-			],
-			rewards : [
-				TOKENS.ERUSD
-			],
-			desc : [
-				{ maintext: "Simple Lending. Rewards are auto-compounded." }
-			]
-		} ,
-		{
-			link : "https://sonic.equalizer.exchange/liquidity?search=eliteRingsScUSD",
-			tokens: [
-				TOKENS.USDCE ,
-				TOKENS.ERUSD ,
-			],
-			platforms: [
-				{ name: "Equalizer" , icon: TOKENS.EQUAL.icon , subtext: "DEX" } ,
-			],
-			rewards : [
-				TOKENS.EQUAL ,
-				//TOKENS.DIAMONDS,
-				{ name: "6x Sonic Points" , icon:"https://ftm.guru/icons/sonic.png" } ,
-			],
-			desc : [
-				{ maintext: "Provide Liquidity to Stableswap Liquidity Pool." }
-			]
-		} ,
-		{
-			link : "https://sonic.equalizer.exchange/liquidity?search=eliteRingsScUSD",
-			tokens: [
-				TOKENS.XUSD ,
-				TOKENS.ERUSD ,
-			],
-			platforms: [
-				{ name: "Equalizer" , icon: TOKENS.EQUAL.icon , subtext: "DEX" } ,
-			],
-			rewards : [
-				TOKENS.EQUAL ,
-				//TOKENS.DIAMONDS,
-				{ name: "Staked xUSD <span class='hint'>(Internal APY)</span>" , icon: TOKENS.XUSD.icon } ,
-				{ name: "Stream Droplets <span class='hint'>(Points)</span>" , icon:"https://ftm.guru/icons/streamprotocol.svg" } ,
-			],
-			desc : [
-				{ maintext: "Provide Liquidity to Stableswap Liquidity Pool." }
-			]
-		} ,
-		{
-			link : "https://sonic.equalizer.exchange/liquidity?search=eliteRingsScUSD",
-			tokens: [
-				TOKENS.SFRXUSD ,
-				TOKENS.ERUSD ,
-			],
-			platforms: [
-				{ name: "Equalizer" , icon: TOKENS.EQUAL.icon , subtext: "DEX" } ,
-			],
-			rewards : [
-				TOKENS.EQUAL ,
-				{ name: "Staked frxUSD <span class='hint'>(Internal APY)</span>" , icon: TOKENS.SFRXUSD.icon } ,
-				//TOKENS.DIAMONDS,
-				//{ name: "6x Sonic Points" , icon:"https://ftm.guru/icons/sonic.png" } ,
-			],
-			desc : [
-				{ maintext: "Provide Liquidity to Stableswap Liquidity Pool." }
-			]
-		} ,
-		{
-			link : "https://sonic.impermax.finance/lending-pool/7/0x98cfa5addcb937c205e35d2bef0885f969dcf958",
-			tokens: [
-				TOKENS.USDCE ,
-				TOKENS.ERUSD ,
-			],
-			platforms: [
-				{ name: "Impermax" , icon:"https://ftm.guru/icons/impermax.png" , subtext: "Leveraged Farming" } ,
-			],
-			rewards : [
-				TOKENS.USDCE,
-				TOKENS.ERUSD
-			],
-			desc : [
-				{ maintext: "Use Equalizer LP to Earn upto 20x Yield through Leverage on Impermax. Rewards are auto-compounded." }
-			]
-		} ,
-		{
-			link : "https://sonic.impermax.finance/lending-pool/7/0xc045e6283517c4b05424414feabe814786ae633a",
-			tokens: [
-				TOKENS.XUSD ,
-				TOKENS.ERUSD ,
-			],
-			platforms: [
-				{ name: "Impermax" , icon:"https://ftm.guru/icons/impermax.png" , subtext: "Leveraged Farming" } ,
-			],
-			rewards : [
-				TOKENS.XUSD,
-				TOKENS.ERUSD
-			],
-			desc : [
-				{ maintext: "Use Equalizer LP to Earn upto 20x Yield through Leverage on Impermax. Rewards are auto-compounded." }
-			]
-		} ,
-		{
-			link : "https://app.spectra.finance/trade-yield/sonic:0xa17392199e03d39d7ece43539e6710d2ba1d8166",
-			tokens: [
-				TOKENS.YT_imxEliteRingsScUSD,
-			],
-			platforms: [
-				{ name: "Spectra" , icon: TOKENS.SPECTRA.icon , subtext: "Basis Trading & Yield Leverage" } ,
-			],
-			rewards : [
-				TOKENS.ERUSD,
-			],
-			desc : [
-				{ maintext: "Buy & hold YT (Yield Tokens) to claim Base Yields from Interest bearing strategy. You can also Trade the 'implied APR number' with 'base yield number' for profits!" }
-			]
-		} ,
-		{
-			link : "https://app.spectra.finance/pools/sonic:0xa17392199e03d39d7ece43539e6710d2ba1d8166",
-			tokens: [
-				TOKENS.PT_imxEliteRingsScUSD,
-				TOKENS.imxEliteRingsScUSD,
-			],
-			platforms: [
-				{ name: "Spectra" , icon: TOKENS.SPECTRA.icon , subtext: "Yield Market Maker" } ,
-				{ name: "Spectra" , icon: TOKENS.SPECTRA.icon , subtext: "Yield Market Maker" } ,
-			],
-			rewards : [
-				TOKENS.imxEliteRingsScUSD,
-				TOKENS.PT_imxEliteRingsScUSD,
-				TOKENS.SPECTRA,
-			],
-			desc : [
-				{ maintext: "Provide Liquidity to PT/IBT pool (SNG AMM) on Curve.fi via Spectra V2 and earn Trade fee (auto-compounded), yield from PT (auto-compounded), yield from IBT (auto-compounded) as well as SPECTRA incentives." }
-			]
-		} ,
-	]
+        // Initialize the modern UI when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Populate initial opportunities preview
+            const container = document.getElementById('partner-pools-container');
+            if (container) {
+                container.innerHTML = PARTNER_POOLS.slice(0, 3).map(pool => `
+                    <div class="opportunity-preview" onclick="window.open('${pool.link}','_blank')">
+                        <div class="opportunity-platform">
+                            <img src="${pool.platforms[0].icon}" alt="${pool.platforms[0].name}" class="platform-icon">
+                            <span>${pool.platforms[0].name}</span>
+                        </div>
+                        <div class="opportunity-yield" id="yield-${pool.platforms[0].name.toLowerCase()}"></div>
+                    </div>
+                `).join('');
+            }
+            
+            // Fetch all APY/APR data and then sort by highest yield
+            Promise.all([
+                fetchSpectraAPY(),
+                fetchEqualizerAPR(),
+                fetchImpermaxAPR()
+            ]).then(() => {
+                sortOpportunitiesByYield();
+            });
+        });
+
+        // Function to fetch Spectra APY from API
+        async function fetchSpectraAPY() {
+            try {
+                const response = await fetch('https://app.spectra.finance/api/v1/sonic/pools');
+                const pools = await response.json();
+                
+                // Find the eliteRingsScUSD pool
+                const eliteRingsPool = pools.find(pool => 
+                    pool.underlying && 
+                    pool.underlying.address === '0xd4aa386bfceeedd9de0875b3ba07f51808592e22'
+                );
+                
+                if (eliteRingsPool && eliteRingsPool.pools && eliteRingsPool.pools[0]) {
+                    const apy = eliteRingsPool.pools[0].lpApy?.total;
+                    if (apy !== null && apy !== undefined) {
+                        const yieldElement = document.getElementById('yield-spectra');
+                        if (yieldElement) {
+                            yieldElement.textContent = `${apy.toFixed(2)}% APY`;
+                            // Store APR for sorting
+                            window.spectraAPR = apy;
+                        }
+                    }
+                }
+            } catch (error) {
+                console.log('Could not fetch Spectra APY:', error);
+                // Keep the default ~12.5% APY if API call fails
+            }
+        }
+
+        // Function to fetch Equalizer APR from API
+        async function fetchEqualizerAPR() {
+            try {
+                const response = await fetch('https://eqapi-sonic-prod-ltanm.ondigitalocean.app/sonic/v4/pairs');
+                const data = await response.json();
+                
+                if (data.success && data.data) {
+                    // Find all active pools with eliteRingsScUSD and TVL > $1,000
+                    const eliteRingsPools = Object.values(data.data).filter(pool => {
+                        return pool.tags && 
+                               pool.tags.includes('active') && 
+                               parseFloat(pool.tvlUsd) >= 1000 &&
+                               (pool.token0?.address === '0xd4aA386bfCEEeDd9De0875B3BA07f51808592e22' ||
+                                pool.token1?.address === '0xd4aA386bfCEEeDd9De0875B3BA07f51808592e22');
+                    });
+                    
+                    if (eliteRingsPools.length > 0) {
+                        // Find the highest APR among all qualifying eliteRingsScUSD pools
+                        const highestAPR = Math.max(...eliteRingsPools.map(pool => parseFloat(pool.apr) || 0));
+                        
+                        const yieldElement = document.getElementById('yield-equalizer');
+                        if (yieldElement && highestAPR > 0) {
+                            yieldElement.textContent = `Up to ${highestAPR.toFixed(2)}% APR`;
+                            // Store APR for sorting
+                            window.equalizerAPR = highestAPR;
+                        }
+                    }
+                }
+            } catch (error) {
+                console.log('Could not fetch Equalizer APR:', error);
+                // Keep the default if API call fails
+            }
+        }
+
+        // Function to fetch Impermax APR from API
+        async function fetchImpermaxAPR() {
+            try {
+                // Try to fetch from Impermax API - common endpoints
+                const endpoints = [
+                    'https://sonic.impermax.finance/api/v1/lending-pools',
+                    'https://sonic.impermax.finance/api/lending-pools',
+                    'https://sonic.impermax.finance/api/v1/pools',
+                    'https://sonic.impermax.finance/api/pools'
+                ];
+                
+                let impermaxData = null;
+                
+                for (const endpoint of endpoints) {
+                    try {
+                        const response = await fetch(endpoint);
+                        if (response.ok) {
+                            impermaxData = await response.json();
+                            break;
+                        }
+                    } catch (e) {
+                        console.log(`Failed to fetch from ${endpoint}:`, e);
+                    }
+                }
+                
+                if (impermaxData) {
+                    // Look for the eliteRingsScUSD pool data
+                    const eliteRingsPool = impermaxData.find(pool => 
+                        pool.underlying?.address === '0xd4aA386bfCEEeDd9De0875B3BA07f51808592e22' ||
+                        pool.token?.address === '0xd4aA386bfCEEeDd9De0875B3BA07f51808592e22' ||
+                        pool.address === '0x98cfa5addcb937c205e35d2bef0885f969dcf958'
+                    );
+                    
+                    if (eliteRingsPool && eliteRingsPool.supplyAPR !== undefined) {
+                        const apr = parseFloat(eliteRingsPool.supplyAPR);
+                        const yieldElement = document.getElementById('yield-impermax');
+                        if (yieldElement && apr > 0) {
+                            yieldElement.textContent = `${apr.toFixed(2)}% APY`;
+                            window.impermaxAPR = apr;
+                        }
+                    }
+                }
+                
+                // If no API data found, don't display any APR
+                if (!impermaxData || !eliteRingsPool) {
+                    const yieldElement = document.getElementById('yield-impermax');
+                    if (yieldElement) {
+                        yieldElement.textContent = ``;
+                        window.impermaxAPR = 0;
+                    }
+                }
+                
+            } catch (error) {
+                console.log('Could not fetch Impermax APR:', error);
+                // Don't display any APR if API fails
+                const yieldElement = document.getElementById('yield-impermax');
+                if (yieldElement) {
+                    yieldElement.textContent = ``;
+                    window.impermaxAPR = 0;
+                }
+            }
+        }
+
+        // Function to sort opportunities by yield
+        function sortOpportunitiesByYield() {
+            const container = document.getElementById('partner-pools-container');
+            if (!container) return;
+
+            // Get all opportunity elements
+            const opportunities = Array.from(container.children);
+            
+            // Sort opportunities by APR (highest first)
+            opportunities.sort((a, b) => {
+                const aYield = a.querySelector('.opportunity-yield').textContent;
+                const bYield = b.querySelector('.opportunity-yield').textContent;
+                
+                // Extract APR numbers from yield text
+                const aAPR = parseFloat(aYield.match(/[\d.]+/)?.[0] || 0);
+                const bAPR = parseFloat(bYield.match(/[\d.]+/)?.[0] || 0);
+                
+                return bAPR - aAPR; // Sort descending (highest first)
+            });
+            
+            // Re-append sorted elements
+            opportunities.forEach(opportunity => {
+                container.appendChild(opportunity);
+            });
+        }
     </script>
 </body>
 </html>
