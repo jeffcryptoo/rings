@@ -688,3 +688,254 @@ async function claim() {
 	// Implementation would go here when staking is enabled
 	notice(`<h3>Staking Coming Soon!</h3><p>Staking features will be available at 500K TVL!</p>`);
 }
+
+// UI Helper Functions
+function showZapMode() {
+    document.getElementById('zap-mode').classList.remove('hidden');
+    document.getElementById('mint-mode').classList.add('hidden');
+    document.querySelectorAll('.toggle-tab').forEach(tab => tab.classList.remove('active'));
+    event.target.classList.add('active');
+}
+
+function showMintMode() {
+    document.getElementById('zap-mode').classList.add('hidden');
+    document.getElementById('mint-mode').classList.remove('hidden');
+    document.querySelectorAll('.toggle-tab').forEach(tab => tab.classList.remove('active'));
+    event.target.classList.add('active');
+}
+
+function showAllOpportunities() {
+    document.getElementById('opportunities-modal').classList.remove('hidden');
+    populateFullOpportunities();
+}
+
+function hideAllOpportunities() {
+    document.getElementById('opportunities-modal').classList.add('hidden');
+}
+
+function populateFullOpportunities() {
+    const container = document.getElementById('partner-pools-full');
+    container.innerHTML = PARTNER_POOLS.map(pool => `
+        <div class="opportunity-card" onclick="window.open('${pool.link}','_blank')">
+            <div class="opportunity-header">
+                <img src="${pool.platforms[0].icon}" alt="${pool.platforms[0].name}" class="platform-icon">
+                <div class="opportunity-title">
+                    <div class="platform-name">${pool.platforms[0].name}</div>
+                    <div class="platform-type">${pool.platforms[0].subtext}</div>
+                </div>
+            </div>
+            <div class="opportunity-assets">
+                ${pool.tokens.map(token => `
+                    <div class="asset-tag">
+                        <img src="${token.icon}" alt="${token.name}" class="asset-icon">
+                        ${token.name}
+                    </div>
+                `).join('')}
+            </div>
+            <div class="opportunity-rewards">
+                ${pool.rewards.map(reward => `
+                    <div class="reward-tag">
+                        <img src="${reward.icon}" alt="${reward.name}" class="reward-icon">
+                        ${reward.name}
+                    </div>
+                `).join('')}
+            </div>
+            <div class="opportunity-description">${pool.desc[0].maintext}</div>
+        </div>
+    `).join('');
+}
+
+// Function to fetch Spectra APY from API
+async function fetchSpectraAPY() {
+    try {
+        const response = await fetch('https://app.spectra.finance/api/v1/sonic/pools');
+        const pools = await response.json();
+        
+        // Find the eliteRingsScUSD pool
+        const eliteRingsPool = pools.find(pool => 
+            pool.underlying && 
+            pool.underlying.address === '0xd4aa386bfceeedd9de0875b3ba07f51808592e22'
+        );
+        
+        if (eliteRingsPool && eliteRingsPool.pools && eliteRingsPool.pools[0]) {
+            const apy = eliteRingsPool.pools[0].lpApy?.total;
+            if (apy !== null && apy !== undefined) {
+                const yieldElement = document.getElementById('yield-spectra');
+                if (yieldElement) {
+                    yieldElement.textContent = `${apy.toFixed(2)}% APY`;
+                    // Store APR for sorting
+                    window.spectraAPR = apy;
+                }
+            }
+        }
+    } catch (error) {
+        console.log('Could not fetch Spectra APY:', error);
+        // Keep the default ~12.5% APY if API call fails
+    }
+}
+
+// Function to fetch Equalizer APR from API
+async function fetchEqualizerAPR() {
+    try {
+        const response = await fetch('https://eqapi-sonic-prod-ltanm.ondigitalocean.app/sonic/v4/pairs');
+        const data = await response.json();
+        
+        if (data.success && data.data) {
+            // Find all active pools with eliteRingsScUSD and TVL > $1,000
+            const eliteRingsPools = Object.values(data.data).filter(pool => {
+                return pool.tags && 
+                       pool.tags.includes('active') && 
+                       parseFloat(pool.tvlUsd) >= 1000 &&
+                       (pool.token0?.address === '0xd4aA386bfCEEeDd9De0875B3BA07f51808592e22' ||
+                        pool.token1?.address === '0xd4aA386bfCEEeDd9De0875B3BA07f51808592e22');
+            });
+            
+            if (eliteRingsPools.length > 0) {
+                // Find the highest APR among all qualifying eliteRingsScUSD pools
+                const highestAPR = Math.max(...eliteRingsPools.map(pool => parseFloat(pool.apr) || 0));
+                
+                const yieldElement = document.getElementById('yield-equalizer');
+                if (yieldElement && highestAPR > 0) {
+                    yieldElement.textContent = `Up to ${highestAPR.toFixed(2)}% APR`;
+                    // Store APR for sorting
+                    window.equalizerAPR = highestAPR;
+                }
+            }
+        }
+    } catch (error) {
+        console.log('Could not fetch Equalizer APR:', error);
+        // Keep the default if API call fails
+    }
+}
+
+// Function to fetch Impermax APR from API
+async function fetchImpermaxAPR() {
+    try {
+        // Try to fetch from Impermax API - common endpoints
+        const endpoints = [
+            'https://sonic.impermax.finance/api/v1/lending-pools',
+            'https://sonic.impermax.finance/api/lending-pools',
+            'https://sonic.impermax.finance/api/v1/pools',
+            'https://sonic.impermax.finance/api/pools'
+        ];
+        
+        let impermaxData = null;
+        
+        for (const endpoint of endpoints) {
+            try {
+                const response = await fetch(endpoint);
+                if (response.ok) {
+                    impermaxData = await response.json();
+                    break;
+                }
+            } catch (e) {
+                console.log(`Failed to fetch from ${endpoint}:`, e);
+            }
+        }
+        
+        if (impermaxData) {
+            // Look for the eliteRingsScUSD pool data
+            const eliteRingsPool = impermaxData.find(pool => 
+                pool.underlying?.address === '0xd4aA386bfCEEeDd9De0875B3BA07f51808592e22' ||
+                pool.token?.address === '0xd4aA386bfCEEeDd9De0875B3BA07f51808592e22' ||
+                pool.address === '0x98cfa5addcb937c205e35d2bef0885f969dcf958'
+            );
+            
+            if (eliteRingsPool && eliteRingsPool.supplyAPR !== undefined) {
+                const apr = parseFloat(eliteRingsPool.supplyAPR);
+                const yieldElement = document.getElementById('yield-impermax');
+                if (yieldElement && apr > 0) {
+                    yieldElement.textContent = `${apr.toFixed(2)}% APY`;
+                    window.impermaxAPR = apr;
+                }
+            }
+        }
+        
+        // If no API data found, don't display any APR
+        if (!impermaxData || !eliteRingsPool) {
+            const yieldElement = document.getElementById('yield-impermax');
+            if (yieldElement) {
+                yieldElement.textContent = ``;
+                window.impermaxAPR = 0;
+            }
+        }
+        
+    } catch (error) {
+        console.log('Could not fetch Impermax APR:', error);
+        // Don't display any APR if API fails
+        const yieldElement = document.getElementById('yield-impermax');
+        if (yieldElement) {
+            yieldElement.textContent = ``;
+            window.impermaxAPR = 0;
+        }
+    }
+}
+
+// Function to sort opportunities by yield
+function sortOpportunitiesByYield() {
+    const container = document.getElementById('partner-pools-container');
+    if (!container) return;
+
+    // Get all opportunity elements
+    const opportunities = Array.from(container.children);
+    
+    // Sort opportunities by APR (highest first)
+    opportunities.sort((a, b) => {
+        const aYield = a.querySelector('.opportunity-yield').textContent;
+        const bYield = b.querySelector('.opportunity-yield').textContent;
+        
+        // Extract APR numbers from yield text
+        const aAPR = parseFloat(aYield.match(/[\d.]+/)?.[0] || 0);
+        const bAPR = parseFloat(bYield.match(/[\d.]+/)?.[0] || 0);
+        
+        return bAPR - aAPR; // Sort descending (highest first)
+    });
+    
+    // Re-append sorted elements
+    opportunities.forEach(opportunity => {
+        container.appendChild(opportunity);
+    });
+}
+
+// At the end of the file, attach UI functions to window for HTML access
+window.showZapMode = showZapMode;
+window.showMintMode = showMintMode;
+window.showAllOpportunities = showAllOpportunities;
+window.hideAllOpportunities = hideAllOpportunities;
+window.populateFullOpportunities = populateFullOpportunities;
+window.zap = zap;
+window.mint = mint;
+window.redeem = redeem;
+window.stake = stake;
+window.unstake = unstake;
+window.claim = claim;
+
+// Ensure DOMContentLoaded handler populates opportunities and fetches APRs
+// (If not already present, add this block)
+document.addEventListener('DOMContentLoaded', function() {
+    paintStatic();
+    initializeModernUI();
+
+    // Populate initial opportunities preview
+    const container = document.getElementById('partner-pools-container');
+    if (container) {
+        container.innerHTML = PARTNER_POOLS.slice(0, 3).map(pool => `
+            <div class="opportunity-preview" onclick="window.open('${pool.link}','_blank')">
+                <div class="opportunity-platform">
+                    <img src="${pool.platforms[0].icon}" alt="${pool.platforms[0].name}" class="platform-icon">
+                    <span>${pool.platforms[0].name}</span>
+                </div>
+                <div class="opportunity-yield" id="yield-${pool.platforms[0].name.toLowerCase()}"></div>
+            </div>
+        `).join('');
+    }
+
+    // Fetch all APY/APR data and then sort by highest yield
+    Promise.all([
+        fetchSpectraAPY(),
+        fetchEqualizerAPR(),
+        fetchImpermaxAPR()
+    ]).then(() => {
+        sortOpportunitiesByYield();
+    });
+});

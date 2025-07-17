@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Rings - Unlock Your Liquid Yield</title>
-    <meta name="description" content="Transform your locked veNFTs into liquid, yield-bearing tokens. Instant liquidity, continuous rewards, exit anytime.">
+    <meta name="description" content="Transform your locked veNFTs into liquid eliteRingsScUSD tokens. Instant liquidity, continuous rewards, exit anytime.">
     <meta name="keywords" content="DeFi, Liquid Staking, Yield, Sonic, Web3, Rings">
     <link rel="shortcut icon" href="https://ftm.guru/icons/eliteness.png">
     <link rel="stylesheet" href="index.css"/>
@@ -19,7 +19,7 @@
             <div class="header-content">
                 <div class="logo">
                     <img src="https://ftm.guru/icons/eliteness.png" alt="Rings" class="logo-icon">
-                    <span class="logo-text">Rings</span>
+                    <span class="logo-text">eliteness.network</span>
                 </div>
                 <div class="wallet-section">
                     <div id="cw" onclick="cw()">
@@ -37,15 +37,15 @@
             <section class="hero">
                 <div class="hero-content">
                     <div class="hero-badge">
-                        <img src="https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/0xd4aa386bfceeedd9de0875b3ba07f51808592e22.png" alt="eliteRingsScUSD" class="hero-icon">
-                        <span>Powered by Treevee</span>
+                        <span>Powered by</span>
+                        <img style="width: 100px;" src="https://ftm.guru/icons/trevee.banner.png" alt="Treevee" class="hero-banner-inline">
                     </div>
                     <h1 class="hero-title">
                         Unlock Your<br>
                         <span class="gradient-text">Liquid Yield</span>
                     </h1>
                     <p class="hero-description">
-                        Transform your locked veNFTs into liquid, yield-bearing tokens.<br>
+                        Transform your locked veNFTs into liquid eliteRingsScUSD tokens.<br>
                         Instant liquidity • Continuous rewards • Exit anytime
                     </p>
                     
@@ -117,7 +117,7 @@
                                 
                                 <div class="action-buttons">
                                     <button class="btn btn-secondary" onclick="zap(true)">Convert All</button>
-                                    <button class="btn btn-primary btn-large" onclick="zap(false)">Convert Amount</button>
+                                    <button class="btn btn-primary btn-large" onclick="zap(false)">Convert</button>
                                 </div>
                             </div>
                             
@@ -287,9 +287,8 @@
 
     <!-- Scripts -->
     <script src="https://ftm.guru/ethers-5.2.umd.min.js"></script>
-    <script src="index.js"></script>
     <script>
-        // Configuration - same as original
+        // Configuration variables for the app
         RPC_URL = "https://rpc.soniclabs.com";
         CHAINID = 146;
         CHAIN_NAME = "Sonic";
@@ -342,7 +341,6 @@
         CTOKEN = "0x4D85bA8c3918359c78Ed09581E5bc7578ba932ba";
         DOCS_LINK = "https://ftm.guru/docs/eliteRingsScUSD";
 
-        // Token definitions and partner pools - same as original
         TOKENS = {
             EQUAL : { name: "EQUAL" , icon:"https://ftm.guru/icons/equal.png" } ,
             USDCE : { name: "USDC.e" , icon:"https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/128x128/0x29219dd400f2bf60e5a23d13be72b486d4038894.png" } ,
@@ -377,242 +375,51 @@
                 platforms: [ { name: "Equalizer" , icon: TOKENS.EQUAL.icon , subtext: "DEX" } ],
                 rewards : [ TOKENS.EQUAL, { name: "6x Sonic Points" , icon:"https://ftm.guru/icons/sonic.png" } ],
                 desc : [ { maintext: "Provide liquidity to stableswap pool" } ]
+            },
+            {
+                link : "https://sonic.equalizer.exchange/liquidity?search=eliteRingsScUSD",
+                tokens: [ TOKENS.XUSD , TOKENS.ERUSD ],
+                platforms: [ { name: "Equalizer" , icon: TOKENS.EQUAL.icon , subtext: "DEX" } ],
+                rewards : [ TOKENS.EQUAL, { name: "Staked xUSD (Internal APY)" , icon: TOKENS.XUSD.icon } , { name: "Stream Droplets (Points)" , icon:"https://ftm.guru/icons/streamprotocol.svg" } ],
+                desc : [ { maintext: "Provide liquidity to stableswap pool" } ]
+            },
+            {
+                link : "https://sonic.equalizer.exchange/liquidity?search=eliteRingsScUSD",
+                tokens: [ TOKENS.SFRXUSD , TOKENS.ERUSD ],
+                platforms: [ { name: "Equalizer" , icon: TOKENS.EQUAL.icon , subtext: "DEX" } ],
+                rewards : [ TOKENS.EQUAL, { name: "Staked frxUSD (Internal APY)" , icon: TOKENS.SFRXUSD.icon } ],
+                desc : [ { maintext: "Provide liquidity to stableswap pool" } ]
+            },
+            {
+                link : "https://sonic.impermax.finance/lending-pool/7/0x98cfa5addcb937c205e35d2bef0885f969dcf958",
+                tokens: [ TOKENS.USDCE , TOKENS.ERUSD ],
+                platforms: [ { name: "Impermax" , icon:"https://ftm.guru/icons/impermax.png" , subtext: "Leveraged Farming" } ],
+                rewards : [ TOKENS.USDCE, TOKENS.ERUSD ],
+                desc : [ { maintext: "Use Equalizer LP to earn up to 20x yield through leverage on Impermax. Rewards are auto-compounded." } ]
+            },
+            {
+                link : "https://sonic.impermax.finance/lending-pool/7/0xc045e6283517c4b05424414feabe814786ae633a",
+                tokens: [ TOKENS.XUSD , TOKENS.ERUSD ],
+                platforms: [ { name: "Impermax" , icon:"https://ftm.guru/icons/impermax.png" , subtext: "Leveraged Farming" } ],
+                rewards : [ TOKENS.XUSD, TOKENS.ERUSD ],
+                desc : [ { maintext: "Use Equalizer LP to earn up to 20x yield through leverage on Impermax. Rewards are auto-compounded." } ]
+            },
+            {
+                link : "https://app.spectra.finance/trade-yield/sonic:0xa17392199e03d39d7ece43539e6710d2ba1d8166",
+                tokens: [ TOKENS.YT_imxEliteRingsScUSD ],
+                platforms: [ { name: "Spectra" , icon: TOKENS.SPECTRA.icon , subtext: "Basis Trading & Yield Leverage" } ],
+                rewards : [ TOKENS.ERUSD ],
+                desc : [ { maintext: "Buy & hold YT (Yield Tokens) to claim base yields from interest bearing strategy. You can also trade the 'implied APR number' with 'base yield number' for profits!" } ]
+            },
+            {
+                link : "https://app.spectra.finance/pools/sonic:0xa17392199e03d39d7ece43539e6710d2ba1d8166",
+                tokens: [ TOKENS.PT_imxEliteRingsScUSD, TOKENS.imxEliteRingsScUSD ],
+                platforms: [ { name: "Spectra" , icon: TOKENS.SPECTRA.icon , subtext: "Yield Market Maker" } ],
+                rewards : [ TOKENS.imxEliteRingsScUSD, TOKENS.PT_imxEliteRingsScUSD, TOKENS.SPECTRA ],
+                desc : [ { maintext: "Provide liquidity to PT/IBT pool (SNG AMM) on Curve.fi via Spectra V2 and earn trade fees (auto-compounded), yield from PT (auto-compounded), yield from IBT (auto-compounded) as well as SPECTRA incentives." } ]
             }
         ];
-
-        // UI Helper Functions
-        function showZapMode() {
-            document.getElementById('zap-mode').classList.remove('hidden');
-            document.getElementById('mint-mode').classList.add('hidden');
-            document.querySelectorAll('.toggle-tab').forEach(tab => tab.classList.remove('active'));
-            event.target.classList.add('active');
-        }
-
-        function showMintMode() {
-            document.getElementById('zap-mode').classList.add('hidden');
-            document.getElementById('mint-mode').classList.remove('hidden');
-            document.querySelectorAll('.toggle-tab').forEach(tab => tab.classList.remove('active'));
-            event.target.classList.add('active');
-        }
-
-        function showAllOpportunities() {
-            document.getElementById('opportunities-modal').classList.remove('hidden');
-            populateFullOpportunities();
-        }
-
-        function hideAllOpportunities() {
-            document.getElementById('opportunities-modal').classList.add('hidden');
-        }
-
-        function populateFullOpportunities() {
-            const container = document.getElementById('partner-pools-full');
-            container.innerHTML = PARTNER_POOLS.map(pool => `
-                <div class="opportunity-card" onclick="window.open('${pool.link}','_blank')">
-                    <div class="opportunity-header">
-                        <img src="${pool.platforms[0].icon}" alt="${pool.platforms[0].name}" class="platform-icon">
-                        <div class="opportunity-title">
-                            <div class="platform-name">${pool.platforms[0].name}</div>
-                            <div class="platform-type">${pool.platforms[0].subtext}</div>
-                        </div>
-                    </div>
-                    <div class="opportunity-assets">
-                        ${pool.tokens.map(token => `
-                            <div class="asset-tag">
-                                <img src="${token.icon}" alt="${token.name}" class="asset-icon">
-                                ${token.name}
-                            </div>
-                        `).join('')}
-                    </div>
-                    <div class="opportunity-rewards">
-                        ${pool.rewards.map(reward => `
-                            <div class="reward-tag">
-                                <img src="${reward.icon}" alt="${reward.name}" class="reward-icon">
-                                ${reward.name}
-                            </div>
-                        `).join('')}
-                    </div>
-                    <div class="opportunity-description">${pool.desc[0].maintext}</div>
-                </div>
-            `).join('');
-        }
-
-        // Initialize the modern UI when page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            // Populate initial opportunities preview
-            const container = document.getElementById('partner-pools-container');
-            if (container) {
-                container.innerHTML = PARTNER_POOLS.slice(0, 3).map(pool => `
-                    <div class="opportunity-preview" onclick="window.open('${pool.link}','_blank')">
-                        <div class="opportunity-platform">
-                            <img src="${pool.platforms[0].icon}" alt="${pool.platforms[0].name}" class="platform-icon">
-                            <span>${pool.platforms[0].name}</span>
-                        </div>
-                        <div class="opportunity-yield" id="yield-${pool.platforms[0].name.toLowerCase()}"></div>
-                    </div>
-                `).join('');
-            }
-            
-            // Fetch all APY/APR data and then sort by highest yield
-            Promise.all([
-                fetchSpectraAPY(),
-                fetchEqualizerAPR(),
-                fetchImpermaxAPR()
-            ]).then(() => {
-                sortOpportunitiesByYield();
-            });
-        });
-
-        // Function to fetch Spectra APY from API
-        async function fetchSpectraAPY() {
-            try {
-                const response = await fetch('https://app.spectra.finance/api/v1/sonic/pools');
-                const pools = await response.json();
-                
-                // Find the eliteRingsScUSD pool
-                const eliteRingsPool = pools.find(pool => 
-                    pool.underlying && 
-                    pool.underlying.address === '0xd4aa386bfceeedd9de0875b3ba07f51808592e22'
-                );
-                
-                if (eliteRingsPool && eliteRingsPool.pools && eliteRingsPool.pools[0]) {
-                    const apy = eliteRingsPool.pools[0].lpApy?.total;
-                    if (apy !== null && apy !== undefined) {
-                        const yieldElement = document.getElementById('yield-spectra');
-                        if (yieldElement) {
-                            yieldElement.textContent = `${apy.toFixed(2)}% APY`;
-                            // Store APR for sorting
-                            window.spectraAPR = apy;
-                        }
-                    }
-                }
-            } catch (error) {
-                console.log('Could not fetch Spectra APY:', error);
-                // Keep the default ~12.5% APY if API call fails
-            }
-        }
-
-        // Function to fetch Equalizer APR from API
-        async function fetchEqualizerAPR() {
-            try {
-                const response = await fetch('https://eqapi-sonic-prod-ltanm.ondigitalocean.app/sonic/v4/pairs');
-                const data = await response.json();
-                
-                if (data.success && data.data) {
-                    // Find all active pools with eliteRingsScUSD and TVL > $1,000
-                    const eliteRingsPools = Object.values(data.data).filter(pool => {
-                        return pool.tags && 
-                               pool.tags.includes('active') && 
-                               parseFloat(pool.tvlUsd) >= 1000 &&
-                               (pool.token0?.address === '0xd4aA386bfCEEeDd9De0875B3BA07f51808592e22' ||
-                                pool.token1?.address === '0xd4aA386bfCEEeDd9De0875B3BA07f51808592e22');
-                    });
-                    
-                    if (eliteRingsPools.length > 0) {
-                        // Find the highest APR among all qualifying eliteRingsScUSD pools
-                        const highestAPR = Math.max(...eliteRingsPools.map(pool => parseFloat(pool.apr) || 0));
-                        
-                        const yieldElement = document.getElementById('yield-equalizer');
-                        if (yieldElement && highestAPR > 0) {
-                            yieldElement.textContent = `Up to ${highestAPR.toFixed(2)}% APR`;
-                            // Store APR for sorting
-                            window.equalizerAPR = highestAPR;
-                        }
-                    }
-                }
-            } catch (error) {
-                console.log('Could not fetch Equalizer APR:', error);
-                // Keep the default if API call fails
-            }
-        }
-
-        // Function to fetch Impermax APR from API
-        async function fetchImpermaxAPR() {
-            try {
-                // Try to fetch from Impermax API - common endpoints
-                const endpoints = [
-                    'https://sonic.impermax.finance/api/v1/lending-pools',
-                    'https://sonic.impermax.finance/api/lending-pools',
-                    'https://sonic.impermax.finance/api/v1/pools',
-                    'https://sonic.impermax.finance/api/pools'
-                ];
-                
-                let impermaxData = null;
-                
-                for (const endpoint of endpoints) {
-                    try {
-                        const response = await fetch(endpoint);
-                        if (response.ok) {
-                            impermaxData = await response.json();
-                            break;
-                        }
-                    } catch (e) {
-                        console.log(`Failed to fetch from ${endpoint}:`, e);
-                    }
-                }
-                
-                if (impermaxData) {
-                    // Look for the eliteRingsScUSD pool data
-                    const eliteRingsPool = impermaxData.find(pool => 
-                        pool.underlying?.address === '0xd4aA386bfCEEeDd9De0875B3BA07f51808592e22' ||
-                        pool.token?.address === '0xd4aA386bfCEEeDd9De0875B3BA07f51808592e22' ||
-                        pool.address === '0x98cfa5addcb937c205e35d2bef0885f969dcf958'
-                    );
-                    
-                    if (eliteRingsPool && eliteRingsPool.supplyAPR !== undefined) {
-                        const apr = parseFloat(eliteRingsPool.supplyAPR);
-                        const yieldElement = document.getElementById('yield-impermax');
-                        if (yieldElement && apr > 0) {
-                            yieldElement.textContent = `${apr.toFixed(2)}% APY`;
-                            window.impermaxAPR = apr;
-                        }
-                    }
-                }
-                
-                // If no API data found, don't display any APR
-                if (!impermaxData || !eliteRingsPool) {
-                    const yieldElement = document.getElementById('yield-impermax');
-                    if (yieldElement) {
-                        yieldElement.textContent = ``;
-                        window.impermaxAPR = 0;
-                    }
-                }
-                
-            } catch (error) {
-                console.log('Could not fetch Impermax APR:', error);
-                // Don't display any APR if API fails
-                const yieldElement = document.getElementById('yield-impermax');
-                if (yieldElement) {
-                    yieldElement.textContent = ``;
-                    window.impermaxAPR = 0;
-                }
-            }
-        }
-
-        // Function to sort opportunities by yield
-        function sortOpportunitiesByYield() {
-            const container = document.getElementById('partner-pools-container');
-            if (!container) return;
-
-            // Get all opportunity elements
-            const opportunities = Array.from(container.children);
-            
-            // Sort opportunities by APR (highest first)
-            opportunities.sort((a, b) => {
-                const aYield = a.querySelector('.opportunity-yield').textContent;
-                const bYield = b.querySelector('.opportunity-yield').textContent;
-                
-                // Extract APR numbers from yield text
-                const aAPR = parseFloat(aYield.match(/[\d.]+/)?.[0] || 0);
-                const bAPR = parseFloat(bYield.match(/[\d.]+/)?.[0] || 0);
-                
-                return bAPR - aAPR; // Sort descending (highest first)
-            });
-            
-            // Re-append sorted elements
-            opportunities.forEach(opportunity => {
-                container.appendChild(opportunity);
-            });
-        }
     </script>
+    <script src="index.js"></script>
 </body>
 </html>

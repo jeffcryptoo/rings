@@ -221,6 +221,13 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 50%;
 }
 
+.hero-banner-inline {
+    height: 16px;
+    width: 100px;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+}
+
 .hero-badge span {
     color: #94a3b8;
     font-size: 0.875rem;
