@@ -1,15 +1,67 @@
 STATE = {};
 function $(_) {return document.getElementById(_);}
-let provider= {};
-let signer= {};
+let provider = null;
+let signer = null;
 
 window.addEventListener(
 	'load',
 	async function() {
+		console.log("=== PAGE LOAD DEBUG ===");
 		console.log("Initializing app...");
-		// Initialize the app without waiting for wallet
+		console.log("Window ethereum available:", !!window.ethereum);
+		console.log("Provider:", provider);
+		console.log("Signer:", signer);
+		
+		// Auto-connect wallet first, then initialize app data
+		await autoConnectWallet();
+		
+		// Initialize the app data after wallet connection
 		await dexstats();
 		arf();
+		
+		// Simple auto-click on wallet connect button
+		setTimeout(() => {
+			console.log("=== AUTO-CLICK DEBUG ===");
+			console.log("Looking for connect button...");
+			const connectButton = document.getElementById('cw');
+			console.log("Connect button found:", connectButton);
+			console.log("Window ethereum:", window.ethereum);
+			console.log("Selected address:", window.ethereum?.selectedAddress);
+			
+			if (connectButton && !window.ethereum?.selectedAddress) {
+				console.log("Auto-clicking wallet connect button...");
+				connectButton.click();
+				console.log("Click executed!");
+			} else {
+				console.log("Not clicking because:");
+				console.log("- Connect button exists:", !!connectButton);
+				console.log("- Already connected:", !!window.ethereum?.selectedAddress);
+			}
+		}, 2000); // Wait 2 seconds for everything to load
+		
+		// Listen for wallet account changes
+		if (window.ethereum) {
+			window.ethereum.on('accountsChanged', async function (accounts) {
+				console.log('Account changed:', accounts);
+				if (accounts.length > 0) {
+					await gubs();
+				} else {
+					// User disconnected wallet
+					if ($("cw")) {
+						$("cw").innerHTML = `<button id="cw_og" class="btn btn-primary">Connect Wallet</button>`;
+					}
+				}
+			});
+			
+			window.ethereum.on('chainChanged', async function (chainId) {
+				console.log('Chain changed:', chainId);
+				if (Number(chainId) === CHAINID) {
+					await gubs();
+				} else {
+					notice(`Wrong network detected!<br>Please switch to chain ID ${CHAINID} (${CHAIN_NAME}).`);
+				}
+			});
+		}
 	},
 	false
 );
@@ -98,6 +150,97 @@ function fornum5(n,d) {
 }
 function fornum6(n,f) {
 	return (Number(n)).toLocaleString(undefined,{maximumFractionDigits:f}) ;
+}
+
+async function autoConnectWallet() {
+	console.log("=== AUTO-CONNECT DEBUG ===");
+	console.log("Starting auto-connect...");
+	
+	// Wait a bit for wallet to be ready
+	await new Promise(resolve => setTimeout(resolve, 1000));
+	console.log("Waited 1 second for wallet to be ready");
+	
+	// Check if wallet is already connected
+	if (window.ethereum && window.ethereum.selectedAddress) {
+		console.log("Wallet already connected:", window.ethereum.selectedAddress);
+		await cw2(); // Update UI with connected wallet
+		return;
+	}
+	
+	// Check if any Ethereum provider is available
+	if (!window.ethereum) {
+		console.log("No wallet detected for auto-connect");
+		return;
+	}
+	
+			// Try to auto-connect - first try eth_accounts (silent), then eth_requestAccounts (with popup)
+		try {
+			console.log("Attempting auto-connect...");
+			
+			// Initialize provider first
+			provider = new ethers.providers.Web3Provider(window.ethereum);
+			signer = provider.getSigner();
+			console.log("Provider and signer initialized");
+			
+			// First try silent connection
+			let accounts = await window.ethereum.request({ method: 'eth_accounts' });
+			console.log("eth_accounts result:", accounts);
+			
+			// If no accounts found, try requesting accounts (this will show popup)
+			if (!accounts || accounts.length === 0) {
+				console.log("No silent connection found, requesting accounts...");
+				accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+				console.log("eth_requestAccounts result:", accounts);
+			}
+		
+		if (accounts && accounts.length > 0) {
+			console.log("Auto-connecting to wallet:", accounts[0]);
+			
+			// Set up provider and signer
+			provider = new ethers.providers.Web3Provider(window.ethereum);
+			signer = provider.getSigner();
+			
+			// Check if we're on the correct network
+			const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+			console.log("Current chain ID:", chainId, "Expected:", CHAINID);
+			if (Number(chainId) !== CHAINID) {
+				console.log("Wrong network detected, switching...");
+				try {
+					await window.ethereum.request({
+						method: 'wallet_switchEthereumChain',
+						params: [{ chainId: '0x' + CHAINID.toString(16) }],
+					});
+				} catch (switchError) {
+					console.log("Network switch failed:", switchError);
+					return;
+				}
+			}
+			
+			// Update wallet display
+			const walletAddress = accounts[0];
+			if ($("cw")) {
+				$("cw").innerHTML = `<button class="btn btn-primary">${walletAddress.substr(0,6)}...${walletAddress.substr(-4)}</button>`;
+			}
+			
+			// Update user data - wrap in try/catch to handle any errors
+			try {
+				await gubs();
+				console.log("Auto-connect successful!");
+			} catch (error) {
+				console.log("Error updating user data:", error);
+				// Still consider it successful if wallet is connected
+				console.log("Auto-connect successful (wallet connected, data update failed)");
+			}
+		} else {
+			console.log("No accounts found for auto-connect");
+		}
+	} catch (error) {
+		console.log("Auto-connect failed:", error);
+		// If user rejects the connection, that's fine - just log it
+		if (error.code === 4001) {
+			console.log("User rejected wallet connection");
+		}
+	}
 }
 
 async function cw() {
@@ -232,6 +375,12 @@ async function paintStatic() {
 }
 
 async function dexstats() {
+	// Only proceed if we have a valid provider
+	if (!provider) {
+		console.log("No provider available for dexstats");
+		return;
+	}
+	
 	_MGR_P = new ethers.Contract( DEPOSITOR , DEPOSITOR_ABI , provider );
 
 	_inf = await _MGR_P.info(SAFE_ADDR,[],[]);
@@ -278,6 +427,12 @@ async function arf(){
 }
 
 async function gubs() {
+	// Ensure we have a valid signer
+	if (!signer || !window.ethereum?.selectedAddress) {
+		console.log("No signer or selected address available for gubs");
+		return;
+	}
+	
 	_MGR = new ethers.Contract( DEPOSITOR , DEPOSITOR_ABI , signer );
 	_sctbal = (await (new ethers.Contract(SCT,LPABI,signer)).balanceOf(window.ethereum.selectedAddress));
 	_inf = await _MGR.info(window.ethereum.selectedAddress,[],[]);
